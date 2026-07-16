@@ -109,16 +109,24 @@ v1.808 起，调用侧和定义侧类型不一致时报错。
 
 ### `#DEFINE` / `#ENDDEFINE`
 
-定义宏：
+`#DEFINE` 是预处理阶段的纯文本替换——不是变量，展开发生在代码执行之前。只能写在 `.ERH` 中。
 
+有两种形式：
+
+**单行宏**（不带 `#ENDDEFINE`，替换为单个值）：
+```
+#DEFINE FIVE 5
+```
+之后代码中的 `FIVE` 会被替换为 `5`：`X = FIVE` → `X = 5`
+
+**多行宏**（带 `#ENDDEFINE`，替换为代码块）：
 ```
 #DEFINE MACRO_NAME
     PRINTL 宏被展开了
 #ENDDEFINE
 ```
 
-### `#DEFINE` 带参数
-
+**带参数的宏**：
 ```
 #DEFINE ADD_PRINT(a, b)
     PRINTFORML {a} + {b} = {a + b}
@@ -137,9 +145,11 @@ v1.808 起，调用侧和定义侧类型不一致时报错。
 
 | 指令 | 说明 |
 |------|------|
-| `#DEFINE` / `#ENDDEFINE` | 定义宏 |
+| `#DEFINE` / `#ENDDEFINE` | 定义宏（文本替换） |
 | `#UNDEF` | 取消宏 |
 | `#DIM` / `#DIMS` | 定义变量 |
-| `#LOCALSIZE` / `#LOCALSSIZE` | 设定 LOCAL/LOCALS 元素个数 |
-| `#FUNCTION` | 声明式中函数开始 |
-| `#DEFINE`（函数内） | 函数内宏 |
+| `#LOCALSIZE` / `#LOCALSSIZE` | 设定当前函数内 LOCAL/LOCALS 的元素个数上限 |
+| `#FUNCTION` | 声明当前函数为式中函数（返回数值），必须用 `RETURNF` 返回 |
+| `#FUNCTIONS` | 声明当前函数为式中函数（返回字符串），必须用 `RETURNF` 返回 |
+
+> `#FUNCTION` 和 `#FUNCTIONS` 将普通 `@` 函数标记为式中函数，使其可被 `CALLF` 调用或直接写在表达式中。标记后函数必须用 `RETURNF <值>` 结束（不能用普通 `RETURN`）。`RETURNF` 省略参数时返回 `0` 或空字符串。

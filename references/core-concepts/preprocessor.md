@@ -9,6 +9,7 @@
 ### `@TITLE_LOADGAME`
 标准标题画面选择「加载」时调用。
 可自定义标题画面的读档界面。
+**但若定义了 `@SYSTEM_TITLE`，则 `@TITLE_LOADGAME` 默认不再自动触发，需手动 `CALL`。**
 
 ### `@SYSTEM_AUTOSAVE`
 自动存档时调用，可自定义自动存档内容。

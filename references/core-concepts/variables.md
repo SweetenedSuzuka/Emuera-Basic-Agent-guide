@@ -40,8 +40,12 @@ A:1 = A:0 + 30
 | `MONEY` | 所持金钱 | — |
 | `DAY` | 当前日数 | — |
 | `TIME` | 当前时间 | — |
+| `ITEM` | 道具数量（可用 `ITEMNAME` 字符串索引） | — |
+| `ITEMSALES` | 道具销售额 | — |
+| `BOUGHT` | 已购买标志 | — |
 | `CHARANUM` | 角色登记数（只读） | — |
 | `RAND` | 随机数（只读） | — |
+| `RANDDATA` | 乱数状态（由 DUMPRAND/INITRAND 使用） | — |
 | `LINECOUNT` | 当前输出行数（只读） | — |
 | `ISTIMEOUT` | TINPUT 系超时标志（只读） | 0 |
 
@@ -53,6 +57,8 @@ A:1 = A:0 + 30
 | `MASTER` | 主人角色番号 | — |
 | `ASSI` | 助手角色番号 | `ASSI:0 = -1` |
 | `PLAYER` | 玩家（操作者）角色番号 | — |
+| `NO` | 角色编号（`CHARA**.CSV` 的 `番号` 列） | — |
+| `ISASSI` | 助手标志（`CHARA**.CSV` 的 `助手` 列） | — |
 | `ASSIPLAY` | 调教中助手 PLAY 状态 | `ASSIPLAY:0 = 0`（BEGIN TRAIN 时） |
 
 ### 命令相关变量
@@ -80,6 +86,8 @@ A:1 = A:0 + 30
 | `SAVESTR` | 字符串 | ○ | 可保存字符串 |
 | `TSTR` | 字符串 | × | 回合字符串（BEGIN TRAIN 时清空） |
 | `CSTR` | 角色+字符串 | ○ | 角色字符串 |
+| `NAME` | 角色+字符串 | ○ | 角色名称（Emuera 中可赋值，eramaker 不可） |
+| `CALLNAME` | 角色+字符串 | ○ | 角色称呼（Emuera 中可赋值，eramaker 不可） |
 | `RESULTS` | 字符串 | × | 命令执行结果的字符串 |
 | `NICKNAME` | 角色+字符串 | ○ | 角色昵称 |
 | `MASTERNAME` | 角色+字符串 | ○ | 主人称呼 |
@@ -101,6 +109,10 @@ A:1 = A:0 + 30
 | `CFLAG` | `CFLAGNAME`（cflag.csv） | 角色标志 |
 | `EQUIP` | `EQUIPNAME`（equip.csv） | 装备 |
 | `TEQUIP` | `TEQUIPNAME`（tequip.csv） | 回合装备 |
+| `PALAMLV` | —（_replace.csv 的 `PALAMLVの初期値`） | 参数等级（非角色变量） |
+| `EXPLV` | —（_replace.csv 的 `EXPLVの初期値`） | 绝顶等级（非角色变量） |
+| `EJAC` | — | 射精相关（`:0 = 10000`） |
+| `PBAND` | —（_replace.csv 的 `PBANDの初期値`） | 苦痛耐性（非角色变量） |
 
 ### 回合参数（角色+一维整数类型）
 
@@ -154,7 +166,13 @@ A:1 = A:0 + 30
 
 | 变量 | 对应文件 |
 |------|----------|
+| `ITEMNAME` | item.csv |
 | `ITEMPRICE` | item.csv |
+| `ABLNAME` | abl.csv |
+| `TALENTNAME` | talent.csv |
+| `EXPNAME` | exp.csv |
+| `MARKNAME` | mark.csv |
+| `PALAMNAME` | palam.csv |
 | `TRAINNAME` | train.csv |
 | `BASENAME` | base.csv |
 | `EQUIPNAME` | equip.csv / tequip.csv |

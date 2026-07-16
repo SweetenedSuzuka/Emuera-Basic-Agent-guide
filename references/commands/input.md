@@ -14,8 +14,8 @@ INPUTS [默认值, 允许点击, 允许跳过]
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | 第1参数 | int/string | 默认值（空输入时使用）。省略时 `INPUT` 要求重新输入，`INPUTS` 接受空字符串 |
-| 第2参数 | int | **EM+EE**。非 0 时，鼠标点击等同于按回车（左键 → `RESULT:1=1`，右键 → `RESULT:1=2`，中键 → `RESULT:1=3`）。同时按 Shift/Ctrl/Alt 则 `RESULT:2` 保存按键状态（bit 16/17/18） |
-| 第3参数 | int | **EM+EE**。非 0 时，右键跳过期间不等待输入，但仍应用默认值 |
+| 第2参数 | int | **EM+EE**。非 0 时，鼠标点击等同于按回车：`INPUTS` 时 `RESULTS` 变为空字符串、`RESULTS:1` 存按钮索引；左键 → `RESULT:1=1`，右键 → `RESULT:1=2`，中键 → `RESULT:1=3`。同时按 Shift/Ctrl/Alt 则 `RESULT:2` 保存按键状态（bit 16/17/18） |
+| 第3参数 | int | **EM+EE**。非 0 时，右键跳过期间不等待输入，但仍应用默认值。与第 2 参数联用时默认值分别流入 `RESULT:1`/`RESULTS:1`，不联用则流入 `RESULT:0`/`RESULTS:0` |
 
 ```
 ; 基本用法
@@ -62,7 +62,7 @@ TINPUTS 超时毫秒, 默认值[, 显示剩余时间, 超时文字, 允许点击
 | 第4参数 | string | 超时时显示的文字。空字符串 = 清除计时器后继续。若指定则第3参数不可省略 |
 | 第5参数 | int | **EM+EE**。非 0 时鼠标点击等同于回车，行为同 INPUT 第 2 参数 |
 
-超时后 `ISTIMEOUT` 变为 1，`RESULT` / `RESULTS` 设为默认值。
+`TINPUTS` 与 `INPUTS` 同样支持宏表达式。超时后 `ISTIMEOUT` 变为 1，`RESULT` / `RESULTS` 设为默认值。
 
 ```
 TINPUT 5000, -1
@@ -116,7 +116,7 @@ INPUTMOUSEKEY [超时毫秒]
 
 | `RESULT:0` | 含义 | 其他返回值 |
 |------------|------|-----------|
-| 1 | 鼠标按下 | `RESULT:1` = 按键值（左 0x100000 / 右 0x200000 / 中 0x400000）；`RESULT:2` = X 坐标；`RESULT:3` = Y 坐标；`RESULT:4` = CBG 按钮映射颜色（0xRRGGBB）或 -1；`RESULT:5` = 点击的按钮值 |
+| 1 | 鼠标按下 | `RESULT:1` = 按键值（左 0x100000 / 右 0x200000 / 中 0x400000）；`RESULT:2` = X 坐标；`RESULT:3` = Y 坐标（**始终为负值**，以客户区左下角为原点）；`RESULT:4` = CBG 按钮映射颜色（0xRRGGBB）或 -1；`RESULT:5` = 点击的按钮值 |
 | 2 | 鼠标滚轮 | `RESULT:1` = 滚轮量（大值，如 120）；`RESULT:2` = X 坐标；`RESULT:3` = Y 坐标 |
 | 3 | 键盘按下 | `RESULT:1` = 键码（不含修饰键）；`RESULT:2` = 键码（含 Alt/Ctrl/Shift 修饰） |
 | 4 | 超时 | — |

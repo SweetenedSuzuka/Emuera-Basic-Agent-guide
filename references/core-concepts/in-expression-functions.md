@@ -36,6 +36,7 @@ str SUBSTRING(str s, int start = 0, int length = -1)
 - 第二个词：函数名
 - 括号内：参数列表（`类型 参数名`）
 - `= 默认值`：参数可省略及默认值
+- `...`：可变参数（可传入任意数量实参）
 
 ## 返回值类型的限制
 
@@ -80,90 +81,165 @@ IF ABS(A - B) > STRLENS(STR:0)
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `ABS` | `int ABS(int)` | 绝对值 |
-| `MAX` | `int MAX(int a, int b)` | 最大值 |
-| `MIN` | `int MIN(int a, int b)` | 最小值 |
-| `SQRT` | `int SQRT(int)` | 平方根 |
-| `POWER` | `int POWER(int base, int exp)` | 幂运算 |
-| `RAND` | `int RAND(int min, int max)` | 随机数 |
+| `ABS` | `int ABS(int value)` | 绝对值 |
+| `SIGN` | `int SIGN(int value)` | 符号：正数返回 1，零返回 0，负数返回 -1 |
+| `SQRT` | `int SQRT(int value)` | 平方根（向下取整） |
+| `POWER` | `int POWER(int base, int exp)` | 幂运算 base^exp |
+| `CBRT` | `int CBRT(int value)` | 立方根 |
+| `LOG` | `int LOG(int value)` | 自然对数 |
+| `LOG10` | `int LOG10(int value)` | 常用对数（底 10） |
+| `EXPOMENT` | `int EXPOMENT(int value)` | 指数函数 e^value |
+| `MAX` | `int MAX(int value(, int...))` | 返回参数中的最大值（可变参数） |
+| `MIN` | `int MIN(int value(, int...))` | 返回参数中的最小值（可变参数） |
+| `LIMIT` | `int LIMIT(int value, int minValue, int maxValue)` | 将 value 限制在 [minValue, maxValue] 范围内 |
+| `INRANGE` | `int INRANGE(int value, int minValue, int maxValue)` | value 在 [minValue, maxValue] 内返回 1，否则 0 |
+| `RAND` | `int RAND(int min(, int max))` | 随机数；单参数时等同 `RAND:X`，双参数返回 [min, max) |
+| `GETBIT` | `int GETBIT(int value, int bit)` | 获取 value 第 bit 位的值（0 或 1） |
 
 ### 字符串
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `STRLEN` | `int STRLEN(str)` | 字节长度 |
-| `STRLENS` | `int STRLENS(str)` | 字数（逻辑长度） |
-| `STRLENU` | `int STRLENU(str)` | Unicode 字数 |
-| `SUBSTRING` | `str SUBSTRING(str, int, int)` | 子字符串 |
-| `SUBSTRINGU` | `str SUBSTRINGU(str, int, int)` | Unicode 子字符串 |
-| `CHARATU` | `str CHARATU(str, int)` | Unicode 字符 |
-| `STRFIND` | `int STRFIND(str, str, int)` | 查找子串位置 |
-| `STRFINDU` | `int STRFINDU(str, str, int)` | Unicode 查找 |
-| `STRCOUNT` | `int STRCOUNT(str, str)` | 子串出现次数 |
-| `SPLIT` | `int SPLIT(str, str, ref)` | 分割字符串 |
-| `TOSTR` | `str TOSTR(int, option)` | 数值转字符串 |
-| `TOINT` | `int TOINT(str)` | 字符串转数值 |
-| `ISNUMERIC` | `int ISNUMERIC(str)` | 是否数值 |
-| `TOUPPER` | `str TOUPPER(str)` | 转大写 |
-| `TOLOWER` | `str TOLOWER(str)` | 转小写 |
-| `TOHALF` | `str TOHALF(str)` | 全角转半角 |
-| `TOFULL` | `str TOFULL(str)` | 半角转全角 |
-| `MATCH` | `int MATCH(str, str)` | 通配符匹配 |
-| `REGEXPMATCH` | `int REGEXPMATCH(str, str)` | 正则匹配 |
+| `STRLEN` | `int STRLEN(str s)` | SHIFT-JIS 字节长度（全角=2） |
+| `STRLENS` | `int STRLENS(str s)` | SHIFT-JIS 字节长度（全角=2） |
+| `STRLENFORM` | `int STRLENFORM(str formedString)` | 格式化字符串展开后的 SHIFT-JIS 字节长度 |
+| `STRLENU` | `int STRLENU(str s)` | Unicode 字数（全角=1） |
+| `STRLENSU` | `int STRLENSU(str s)` | Unicode 字数（全角=1） |
+| `STRLENFORMU` | `int STRLENFORMU(str formedString)` | 格式化字符串展开后的 Unicode 字数 |
+| `SUBSTRING` | `str SUBSTRING(str s, int start, int count)` | 取子字符串（SHIFT-JIS 计数）；count 为负时取到末尾 |
+| `SUBSTRINGU` | `str SUBSTRINGU(str s, int start, int count)` | 取子字符串（Unicode 计数）；count 为负时取到末尾 |
+| `CHARATU` | `str CHARATU(str s, int position)` | 取 Unicode 位置 position 的单个字符 |
+| `STRFIND` | `int STRFIND(str s, str searchWord(, int start))` | 查找 searchWord 在 s 中的位置（SHIFT-JIS 索引），未找到返回 -1 |
+| `STRFINDU` | `int STRFINDU(str s, str searchWord(, int start))` | 查找 searchWord 在 s 中的位置（Unicode 索引），未找到返回 -1 |
+| `STRCOUNT` | `int STRCOUNT(str s, str searchWord)` | searchWord 在 s 中出现的次数（searchWord 为正则表达式） |
+| `SPLIT` | `int SPLIT(str s, str separator, strArray result)` | 以 separator 分割 s，结果写入字符串数组 result，返回分割数 |
+| `STRJOIN` | `str STRJOIN(strArray array(, str separator, int start, int count))` | 将字符串数组各元素用 separator 连接；默认 separator 为逗号 |
+| `REPLACE` | `str REPLACE(str s, str searchWord, str replaceWord)` | 将 s 中匹配 searchWord（正则）的部分替换为 replaceWord |
+| `ESCAPE` | `str ESCAPE(str s)` | 转义 s 中的正则表达式元字符 |
+| `UNICODE` | `str UNICODE(int charCode)` | 返回 Unicode 码点 charCode 对应的字符 |
+| `ENCODETOUNI` | `int ENCODETOUNI(str s(, int position))` | 返回 s 中 position 处字符的 Unicode 码点；position 默认 0 |
+| `TOUPPER` | `str TOUPPER(str s)` | 英文字母转大写 |
+| `TOLOWER` | `str TOLOWER(str s)` | 英文字母转小写 |
+| `TOHALF` | `str TOHALF(str s)` | 全角字符转半角（无对应半角的字符保持原样） |
+| `TOFULL` | `str TOFULL(str s)` | 半角字符转全角 |
+| `TOSTR` | `str TOSTR(int value(, str format))` | 数值转字符串；format 为 C# 书式字符串（如 `"D8"`、`"X"`） |
+| `TOINT` | `int TOINT(str s)` | 字符串转数值；不可解析时返回 0 |
+| `ISNUMERIC` | `int ISNUMERIC(str s)` | s 可解析为数值返回 1，否则 0 |
+| `STRFORM` | `str STRFORM(str formedString)` | 将 formedString 按 PRINTFORM 规则展开后返回 |
+| `REGEXPMATCH` | `int REGEXPMATCH(str s, str pattern(, int output))` | 正则匹配；返回匹配数。output 非零时 RESULT:1 获取组数、RESULTS 获取各匹配结果 |
+|  | `int REGEXPMATCH(str s, str pattern, ref int groupCount, ref str[] matches)` | 同上重载：groupCount 获取组数，matches 获取各匹配结果 |
 
-### 数组/变量
+### 数组 / 变量
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `VARSIZE` | `int VARSIZE(str)` | 获取变量元素个数 |
-| `ISDEFINED` | `int ISDEFINED(str)` | 变量是否已定义 |
-| `EXISTVAR` | `int EXISTVAR(str)` | 变量是否存在 |
-| `GETCOLOR` | `int GETCOLOR()` | 获取当前颜色 |
-| `GETCONFIG` | `int GETCONFIG(str)` | 获取配置值 |
-| `GETCONFIGS` | `str GETCONFIGS(str)` | 获取配置字符串值 |
-| `SUMARRAY` | `int SUMARRAY(ref)` | 数组求和 |
-| `MAXMINARRAY` | `int MAXMINARRAY(ref, int)` | 数组最大/最小值 |
-| `INRANGEARRAY` | `int INRANGEARRAY(ref, int, int)` | 范围内元素计数 |
+| `VARSIZE` | `int VARSIZE(str varName(, int dimension))` | 获取变量 varName 的数组元素个数；dimension 指定多维数组的维度（0 起始） |
+| `ISDEFINED` | `int ISDEFINED(str macroName)` | 宏 macroName 已定义返回 1，否则 0 |
+| `EXISTVAR` | `int EXISTVAR(str varName)` | 变量/常量 varName 已定义则返回类型位掩码，否则 0 |
+| `GETVAR` | `int GETVAR(str varName)` | 以字符串 varName 获取整数型变量/常量的值 |
+| `GETVARS` | `str GETVARS(str varName)` | 以字符串 varName 获取字符串型变量/常量的值 |
+| `SETVAR` | `int SETVAR(str varName, any value)` | 以字符串 varName 将 value 赋值给变量；始终返回 1 |
+| `VARSETEX` | `int VARSETEX(str varName, any value(, int setAllDim, int from, int to))` | 以字符串指定变量名进行 VARSET；始终返回 1 |
+| `ENUMVARBEGINSWITH` | `int ENUMVARBEGINSWITH(str keyword)` | 枚举以 keyword **开头**的变量/常量名，存入 RESULTS，返回匹配数 |
+| `ENUMVARENDSWITH` | `int ENUMVARENDSWITH(str keyword)` | 枚举以 keyword **结尾**的变量/常量名，存入 RESULTS，返回匹配数 |
+| `ENUMVARWITH` | `int ENUMVARWITH(str keyword)` | 枚举**包含** keyword 的变量/常量名，存入 RESULTS，返回匹配数 |
+| `ENUMFUNCBEGINSWITH` | `int ENUMFUNCBEGINSWITH(str keyword)` | 枚举以 keyword **开头**的函数名，存入 RESULTS，返回匹配数 |
+| `ENUMFUNCENDSWITH` | `int ENUMFUNCENDSWITH(str keyword)` | 枚举以 keyword **结尾**的函数名，存入 RESULTS，返回匹配数 |
+| `ENUMFUNCWITH` | `int ENUMFUNCWITH(str keyword)` | 枚举**包含** keyword 的函数名，存入 RESULTS，返回匹配数 |
+| `ENUMMACROBEGINSWITH` | `int ENUMMACROBEGINSWITH(str keyword)` | 枚举以 keyword **开头**的宏名，存入 RESULTS，返回匹配数 |
+| `ENUMMACROENDSWITH` | `int ENUMMACROENDSWITH(str keyword)` | 枚举以 keyword **结尾**的宏名，存入 RESULTS，返回匹配数 |
+| `ENUMMACROWITH` | `int ENUMMACROWITH(str keyword)` | 枚举**包含** keyword 的宏名，存入 RESULTS，返回匹配数 |
+| `SUMARRAY` | `int SUMARRAY(intArray array(, int start, int end))` | 对整数数组 [start, end) 范围内元素求和 |
+| `MAXARRAY` | `int MAXARRAY(intArray array(, int start, int end))` | 返回整数数组 [start, end) 范围内的最大值 |
+| `MINARRAY` | `int MINARRAY(intArray array(, int start, int end))` | 返回整数数组 [start, end) 范围内的最小值 |
+| `MATCH` | `int MATCH(array arr, any value(, int start, int end))` | 统计数组 [start, end) 范围内等于 value 的元素个数 |
+| `INRANGEARRAY` | `int INRANGEARRAY(intArray array, int min, int max(, int start, int end))` | 统计数组 [start, end) 范围内满足 min ≤ value < max 的元素个数 |
+| `INRANGECARRAY` | `int INRANGECARRAY(charaArray array, int min, int max(, int start, int end))` | 统计角色数组 [start, end) 范围内满足 min ≤ value < max 的元素个数 |
+| `SUMCARRAY` | `int SUMCARRAY(charaArray array(, int start, int end))` | 对角色数组 [start, end) 范围内元素求和 |
+| `CMATCH` | `int CMATCH(charaArray array, any value(, int start, int end))` | 统计角色数组 [start, end) 范围内等于 value 的元素个数 |
+| `MAXCARRAY` | `int MAXCARRAY(charaArray array(, int start, int end))` | 返回角色数组 [start, end) 范围内的最大值 |
+| `MINCARRAY` | `int MINCARRAY(charaArray array(, int start, int end))` | 返回角色数组 [start, end) 范围内的最小值 |
+| `GROUPMATCH` | `int GROUPMATCH(any key, any value...)` | 返回第 2 参数起等于 key 的参数个数（所有参数同类型） |
+| `NOSAMES` | `int NOSAMES(any value, any value...)` | 所有参数互不相同时返回 1，否则 0 |
+| `ALLSAMES` | `int ALLSAMES(any value, any value...)` | 所有参数全部相同时返回 1，否则 0 |
+| `GETNUM` | `int GETNUM(variable var, str keyword)` | 返回 var 中名称等于 keyword 的元素的序号 |
+| `FINDELEMENT` | `int FINDELEMENT(variable var, any value(, int start, int end, int dimension))` | 在 var 中查找 value，返回首个匹配索引；未找到返回 -1 |
+| `FINDLASTELEMENT` | `int FINDLASTELEMENT(variable var, any value(, int start, int end, int dimension))` | 在 var 中反向查找 value，返回最后一个匹配索引；未找到返回 -1 |
+| `GETPALAMLV` | `int GETPALAMLV(int value, int maxLV)` | 比较 value 与 PALAMLV，返回达到的最高等级 |
+| `GETEXPLV` | `int GETEXPLV(int value, int maxLV)` | 比较 value 与 EXPLV，返回达到的最高等级 |
+| `ERDNAME` | `str ERDNAME(variable var, int index(, int dimension))` | 获取 ERD 变量 var 中索引 index 对应的名称；dimension 指定维度（1 起始） |
+
+### 颜色
+
+| 函数 | 签名 | 说明 |
+|------|------|------|
+| `GETCOLOR` | `int GETCOLOR()` | 获取当前文字色（0xRRGGBB） |
+| `GETBGCOLOR` | `int GETBGCOLOR()` | 获取当前背景色（0xRRGGBB） |
+| `GETDEFCOLOR` | `int GETDEFCOLOR()` | 获取配置中默认文字色（0xRRGGBB） |
+| `GETDEFBGCOLOR` | `int GETDEFBGCOLOR()` | 获取配置中默认背景色（0xRRGGBB） |
+| `GETFOCUSCOLOR` | `int GETFOCUSCOLOR()` | 获取按钮选中时的文字色（0xRRGGBB） |
+| `COLOR_FROMNAME` | `int COLOR_FROMNAME(str colorName)` | 颜色名转颜色值（如 `"Red"` → `0xFF0000`） |
+| `COLOR_FROMRGB` | `str COLOR_FROMRGB(int r, int g, int b)` | RGB 分量转颜色名字符串 |
+
+### 配置
+
+| 函数 | 签名 | 说明 |
+|------|------|------|
+| `GETCONFIG` | `int GETCONFIG(str configWord)` | 获取配置项 configWord 的整数值 |
+| `GETCONFIGS` | `str GETCONFIGS(str configWord)` | 获取配置项 configWord 的字符串值 |
+
+### CSV
+
+| 函数 | 签名 | 说明 |
+|------|------|------|
+| `CSVNAME` | `str CSVNAME(int charaNo)` | 获取 charaNo 对应 CSV 中的「名前」 |
+| `CSVCALLNAME` | `str CSVCALLNAME(int charaNo)` | 获取 charaNo 对应 CSV 中的「呼び名」 |
+| `CSVNICKNAME` | `str CSVNICKNAME(int charaNo)` | 获取 charaNo 对应 CSV 中的「ニックネーム」 |
+| `CSVMASTERNAME` | `str CSVMASTERNAME(int charaNo)` | 获取 charaNo 对应 CSV 中的「主人称」 |
+| `CSVBASE` | `int CSVBASE(int charaNo, int index)` | 获取 charaNo 的 BASE:index |
+| `CSVCSTR` | `str CSVCSTR(int charaNo, int index)` | 获取 charaNo 的 CSTR:index |
+| `CSVABL` | `int CSVABL(int charaNo, int index)` | 获取 charaNo 的 ABL:index |
+| `CSVTALENT` | `int CSVTALENT(int charaNo, int index)` | 获取 charaNo 的 TALENT:index |
+| `CSVMARK` | `int CSVMARK(int charaNo, int index)` | 获取 charaNo 的 MARK:index |
+| `CSVEXP` | `int CSVEXP(int charaNo, int index)` | 获取 charaNo 的 EXP:index |
+| `CSVRELATION` | `int CSVRELATION(int charaNo, int index)` | 获取 charaNo 的 RELATION:index |
+| `CSVJUEL` | `int CSVJUEL(int charaNo, int index)` | 获取 charaNo 的 JUEL:index |
+| `CSVEQUIP` | `int CSVEQUIP(int charaNo, int index)` | 获取 charaNo 的 EQUIP:index |
+| `CSVCFLAG` | `int CSVCFLAG(int charaNo, int index)` | 获取 charaNo 的 CFLAG:index |
 
 ### 文件
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `EXISTFILE` | `int EXISTFILE(str)` | 文件是否存在 |
-| `ENUMFILES` | `int ENUMFILES(str, str, int)` | 枚举文件 |
-| `EXISTCSV` | `int EXISTCSV(str)` | CSV 是否存在 |
+| `EXISTFILE` | `int EXISTFILE(str relativePath)` | 文件 relativePath（相对 Emuera.exe）存在返回 1，否则 0 |
+| `ENUMFILES` | `int ENUMFILES(str dir(, str pattern, int option))` | 枚举 dir 下匹配 pattern 的文件名存入 RESULTS，返回匹配数；option 非零时搜索子文件夹 |
+| `EXISTCSV` | `int EXISTCSV(int charaNo)` | charaNo 对应的 CSV 已定义返回 1，否则 0 |
 
 ### HTML
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `HTML_TOPLAINTEXT` | `str HTML_TOPLAINTEXT(str)` | HTML 转纯文本 |
-| `HTML_ESCAPE` | `str HTML_ESCAPE(str)` | HTML 转义 |
-| `HTML_STRINGLEN` | `int HTML_STRINGLEN(str)` | HTML 字符串长度 |
-| `HTML_STRINGLINES` | `int HTML_STRINGLINES(str)` | HTML 字符串行数 |
-| `HTML_SUBSTRING` | `str HTML_SUBSTRING(str, int, int)` | HTML 子字符串 |
-| `HTML_TAGSPLIT` | `int HTML_TAGSPLIT(str, ref)` | HTML 标签分割 |
-| `HTML_GETPRINTEDSTR` | `str HTML_GETPRINTEDSTR()` | 获取已打印的 HTML |
-| `HTML_POPPRINTINGSTR` | `str HTML_POPPRINTINGSTR()` | 弹出已打印的 HTML |
+| `HTML_TOPLAINTEXT` | `str HTML_TOPLAINTEXT(str html)` | HTML 转纯文本（去除标签、展开字符引用） |
+| `HTML_ESCAPE` | `str HTML_ESCAPE(str html)` | 将字符串转义为 HTML 字符引用 |
+| `HTML_STRINGLEN` | `int HTML_STRINGLEN(str html(, int returnPixel))` | HTML 字符串显示宽度；returnPixel 非零时返回像素数，否则返回半角字符数 |
+| `HTML_STRINGLINES` | `int HTML_STRINGLINES(str html, int width)` | HTML 字符串按 width（半角字符数）折行后的行数 |
+| `HTML_SUBSTRING` | `str HTML_SUBSTRING(str html, int width)` | HTML 字符串按 width（半角字符数）截取第一行，剩余内容写入 RESULTS:1 |
+| `HTML_GETPRINTEDSTR` | `str HTML_GETPRINTEDSTR(int lineNo)` | 获取已显示的第 lineNo 行 HTML 内容 |
+| `HTML_POPPRINTINGSTR` | `str HTML_POPPRINTINGSTR()` | 获取当前打印缓冲区中的 HTML 内容并清空缓冲区 |
 
 ### 其他
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `GETTIME` | `int GETTIME()` | 获取系统时间 |
-| `GETMILLISECOND` | `int GETMILLISECOND()` | 获取毫秒 |
-| `GETSECOND` | `int GETSECOND()` | 获取秒 |
-| `GETMEMORYUSAGE` | `int GETMEMORYUSAGE()` | 获取内存使用量 |
-| `CONVERT` | `int CONVERT(int, int, int)` | 单位换算 |
-| `MONEYSTR` | `str MONEYSTR(int, option)` | 金钱格式化 |
-| `BARSTR` | `str BARSTR(int, int, int)` | 进度条字符串 |
-| `ERDNAME` | `str ERDNAME(int)` | 获取 ERD 文件名 |
-| `CSVNAME` | `str CSVNAME(int)` | 获取 CSV 文件名 |
-| `CSV_STATUS` | `int CSV_STATUS()` | CSV 加载状态 |
-| `ENUMVAR` | `str ENUMVAR(int)` | 枚举变量名 |
-| `ENUMFUNC` | `str ENUMFUNC(int)` | 枚举函数名 |
-| `ENUMMACRO` | `str ENUMMACRO(int)` | 枚举宏名 |
-| `EXISTFUNCTION` | `int EXISTFUNCTION(str)` | 函数是否存在 |
-| `EXISTMETH` | `int EXISTMETH(str, str)` | 方法是否存在 |
-| `GETMETH` | `str GETMETH(str, str)` | 获取方法值 |
-| `GETSETVAR` | `str GETSETVAR(str, int, str)` | 获取/设置变量 |
+| `CONVERT` | `str CONVERT(int value, int base)` | 将 value 按 base 进制转为字符串；base 仅支持 2、8、10、16 |
+| `MONEYSTR` | `str MONEYSTR(int value(, str format))` | 数值格式化为金钱字符串（自动附加 replace.csv 中的单位）；format 同 TOSTR |
+| `BARSTR` | `str BARSTR(int value, int maxValue, int length)` | 生成与 BAR 命令同样式的进度条字符串 |
+| `GETTIME` | `int GETTIME()` | 获取当前系统时间的整数值（YYYYMMDDHHMMSSmmm） |
+| `GETTIMES` | `str GETTIMES()` | 获取当前系统时间的字符串（`YYYY/MM/DD HH:MM:SS`） |
+| `GETMILLISECOND` | `int GETMILLISECOND()` | 获取自 0001-01-01 以来的毫秒数 |
+| `GETSECOND` | `int GETSECOND()` | 获取自 0001-01-01 以来的秒数 |
+| `GETMEMORYUSAGE` | `int GETMEMORYUSAGE()` | 获取当前 Emuera 内存使用量（字节） |
+| `EXISTFUNCTION` | `int EXISTFUNCTION(str funcName)` | 函数 funcName 存在则返回类型码（1=普通函数，2=数值型式中函数，3=字符串型式中函数），不存在返回 0 |
+| `EXISTMETH` | `int EXISTMETH(str functionName)` | 自定义式中函数 functionName 存在则返回类型码（1=#FUNCTION，2=#FUNCTIONS），不存在返回 0 |
+| `GETMETH` | `int GETMETH(str functionName(, int defaultValue, any argument...))` | 以字符串调用数值型式中函数；defaultValue 为函数不存在时的默认返回值 |
+| `GETMETHS` | `str GETMETHS(str functionName(, str defaultValue, any argument...))` | 以字符串调用字符串型式中函数；defaultValue 为函数不存在时的默认返回值 |

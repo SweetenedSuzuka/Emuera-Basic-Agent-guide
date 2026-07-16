@@ -83,16 +83,19 @@ ERA Basic 有丰富的内建变量：
 
 | 类别 | 示例 | 说明 |
 |------|------|------|
-| 单字母变量 | `A`～`Z` | 整数类型一维数组，可保存 |
-| 基础游戏变量 | `MONEY`、`DAY`、`TIME` | 游戏状态 |
-| 角色变量 | `TARGET`、`MASTER`、`ASSI`、`PLAYER` | 角色操作 |
+| 单字母变量 | `A`～`Z` | 整数类型一维数组，可保存，**一般情况下被禁用**，可以去`CSV/VariableSize.csv`确认 |
+| 基础游戏变量 | `MONEY`、`DAY`、`TIME`、`ITEM`、`ITEMSALES` | 游戏状态 |
+| 系统变量 | `RESULT`、`RESULTS`、`COUNT`、`RAND`、`CHARANUM` | 返回值/计数器/随机数/角色数 |
+| 角色引用 | `TARGET`、`MASTER`、`ASSI`、`PLAYER` | 角色编号 |
+| 角色基础属性 | `NAME`、`CALLNAME`、`NO`、`ISASSI` | 角色名/称呼/编号/助手标志 |
+| 角色属性 | `BASE`、`ABL`、`TALENT`、`EXP`、`MARK`、`PALAM`、`STAIN`、`EX`、`SOURCE`、`RELATION` | 角色参数（与 CSV 列对应） |
 | 命令相关 | `SELECTCOM`、`PREVCOM`、`NEXTCOM` | 调教命令 |
-| 状态变量 | `FLAG`、`TFLAG`、`CFLAG` | 整数类型标志 |
+| 通用标志 | `FLAG`、`TFLAG` | 一维整数标志，可保存 |
+| 角色标志 | `CFLAG`、`CDFLAG` | 角色二维/三维整数标志（`CFLAG:角色:索引`） |
 | 字符串变量 | `STR`、`SAVESTR`、`TSTR`、`CSTR` | 字符串存储 |
-| 角色属性 | `BASE`、`ABL`、`TALENT`、`EXP`、`MARK`、`PALAM`、`STAIN`、`EX`、`SOURCE` | 角色参数 |
 | 局部变量 | `LOCAL`、`LOCALS`、`ARG`、`ARGS` | 函数内局部 |
 | 全局变量 | `GLOBAL`、`GLOBALS` | 跨存档共享 |
-| CSV 变量 | `ITEMNAME`、`TALENTNAME` 等 | CSV 定义值引用 |
+| CSV 引用变量 | `ITEMNAME`、`TALENTNAME` 等 | CSV 定义值引用，**只读不可赋值** |
 | 用户定义 | `#DIM`、`#DIMS` 定义 | 自定义变量 |
 
 ### 数组访问
@@ -413,5 +416,3 @@ rg -n "PRINT\|IF\|CALL" references/INDEX.md
 # 查找特定命令
 rg -n "^\[.*PRINT" references/INDEX.md
 ```
-
-从仓库根目录执行时，路径前加 `emuera-basic/`。

@@ -105,6 +105,86 @@ v1.808 起，调用侧和定义侧类型不一致时报错。
 | `CALLEVENT` | 调用事件函数 |
 | `CALLSHARP` | 通过字符串调用函数 |
 
+### 参数引用传递（v1.810+）
+
+使用 `#DIM REF` 声明引用类型变量作为参数，可以在函数内部修改调用侧传入的变量值：
+
+```
+@TEST(HOGE)
+#DIM REF HOGE
+    HOGE = 100
+    RETURN
+
+; 调用
+A = 0
+CALL TEST(A)
+; 调用后 A = 100
+```
+
+引用参数的声明必须写在函数定义的紧邻下一行。
+
+## 函数属性
+
+函数属性以 `#` 开头，必须写在函数声明的紧邻下一行。
+
+### `#ONLY` — 事件函数独占
+
+仅对事件函数有效。使用 `#ONLY` 后，同名事件函数中**仅执行第一个**，其余被跳过：
+
+```
+@EVENTFIRST
+#ONLY
+    ; 只执行这个 EVENTFIRST
+```
+
+## 预处理器条件块
+
+以下为预处理器级别的条件块（不是运行时的 IF）。只能以整行为单位，同行不能附带其他代码。
+
+### `[SKIPSTART]` ～ `[SKIPEND]` — 跳过代码块
+
+Emuera 忽略 `[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行。用于兼容 eramaker：
+
+```
+[SKIPSTART]
+    ; eramaker 专用代码，Emuera 直接跳过
+[SKIPEND]
+
+;!;[SKIPSTART]
+    ; 只有 Emuera 执行的代码
+;!;[SKIPEND]
+```
+
+### `[IF XXX]` ～ `[ELSEIF]` ～ `[ELSE]` ～ `[ENDIF]` — 宏条件编译
+
+根据某个宏 `XXX` 是否被 `#DEFINE` 定义来决定代码块是否被编译：
+
+```
+[IF FEATURE_X]
+    ; FEATURE_X 宏已定义时编译此块
+[ELSEIF FEATURE_Y]
+    ; FEATURE_Y 宏已定义时编译此块
+[ELSE]
+    ; 以上宏均未定义时编译此块
+[ENDIF]
+```
+
+这允许通过宏开关控制代码的包含/排除（如可选模块等）。
+
+### `[IF_DEBUG]` / `[IF_NDEBUG]` — 调试模式条件
+
+调试专用条件块，详见 `references/reference/debug.md`。**不推荐在开发中使用。**
+
+## 宏的限制
+
+- 宏的内容只能是表达式，**不能包含赋值运算符**（`=`、`+=` 等）。
+- 宏中括号必须配对。
+- 宏名不能替代命令名（如 `PRINT`）。
+- 宏展开不能应用于 `.csv`、`.ERH` 本身、预处理器指令、属性名。
+- ERH 中的 `#DIM` 元素数不会展开宏。
+- 宏可多重展开（宏 A 引用宏 B），但存在循环引用时引擎会检测并报错。
+- 空宏（`#DEFINE HOGE` 无替换内容）合法，用于 `[IF HOGE]` 条件判断。
+
 ## 预处理器
 
 ### `#DEFINE` / `#ENDDEFINE`
@@ -153,3 +233,21 @@ v1.808 起，调用侧和定义侧类型不一致时报错。
 | `#FUNCTIONS` | 声明当前函数为式中函数（返回字符串），必须用 `RETURNF` 返回 |
 
 > `#FUNCTION` 和 `#FUNCTIONS` 将普通 `@` 函数标记为式中函数，使其可被 `CALLF` 调用或直接写在表达式中。标记后函数必须用 `RETURNF <值>` 结束（不能用普通 `RETURN`）。`RETURNF` 省略参数时返回 `0` 或空字符串。
+
+### 式中函数完整示例
+
+```
+; 定义数值型式中函数
+@DOUBLE(value)
+#FUNCTION
+    RETURNF value * 2
+
+; 定义字符串型式中函数
+@GREET(name)
+#FUNCTIONS
+    RETURNF @"你好，{name}！"
+
+; 调用
+A = DOUBLE(5)        ; A = 10
+STR:0 = GREET("小明") ; STR:0 = "你好，小明！"
+```

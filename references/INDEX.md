@@ -26,7 +26,7 @@
 | `references/commands/string-operations.md` | 字符串操作：TOUPPER/TOSTR/STRLEN/SUBSTRING/STRFIND/SPLIT/MATCH 等 |
 | `references/commands/control-flow.md` | 流程控制：IF/SIF/FOR/WHILE/REPEAT/SELECTCASE/GOTO/CALL/JUMP/TRY/THROW 等 |
 | `references/commands/input.md` | 输入命令：INPUT/INPUTS/ONEINPUT/TINPUT/TONEINPUT/INPUTMOUSEKEY 等 |
-| `references/commands/system.md` | 系统命令：BEGIN/QUIT/SAVEGAME/LOADDATA/GETTIME/CLEARMEMORY/DEBUGPRINT 等 |
+| `references/commands/system.md` | 系统命令：BEGIN/QUIT/存档/时间/内存/配置等 |
 | `references/commands/character.md` | 角色操作：ADDCHARA/DELCHARA/COPYCHARA/FINDCHARA/PICKUPCHARA/SORTCHARA 等 |
 | `references/commands/data-save-load.md` | 存档读档：SAVEGAME/LOADGAME/SAVEDATA/LOADDATA/SAVEGLOBAL/LOADGLOBAL/CHKDATA 等 |
 | `references/commands/data-table.md` | DataTable 命令：DT_CREATE/DT_COLUMN_ADD/DT_ROW_ADD/DT_CELL_GET/DT_SELECT 等 |
@@ -34,6 +34,7 @@
 | `references/commands/xml.md` | XML 命令：XML_DOCUMENT/XML_GET/XML_SET/XML_ADDNODE/XML_TOSTR 等 |
 | `references/commands/graphics.md` | 图形命令：GCREATE/GDRAWG/GDRAWTEXT/SPRITECREATE/CBGSETG/SETBGIMAGE 等 |
 | `references/commands/sound.md` | 音频命令：PLAYSOUND/STOPSOUND/PLAYBGM/STOPBGM/SETSOUNDVOLUME 等 |
+| `references/commands/html-print.md` | HTML_PRINT 标签系统：p/nobr/button/font/img/div 等标签、HTML_ESCAPE 等函数 |
 | `references/commands/math-etc.md` | 数学/数组/变量参照：RAND/ABS/MAX/MIN/ARRAYSORT/SUMARRAY/VARSIZE/EXISTFILE 等 |
 
 ## 系统流程 (system-flow/)
@@ -46,7 +47,7 @@
 
 | 文件 | 说明 |
 |------|------|
-| `references/game-config/config.md` | emuera.config 配置项、_replace.csv 可替换项目、调试模式、_Rename.csv |
+| `references/game-config/config.md` | emuera.config 配置项、_replace.csv 可替换项目、_Rename.csv |
 
 ## 与 eramaker 差异 (eramaker-diff/)
 
@@ -60,6 +61,13 @@
 |------|------|
 | `references/csv-reference/csv-format.md` | CSV 文件格式：chara*.csv、item.csv、abl.csv、str.csv 等完整说明 |
 | `references/csv-reference/erb-format.md` | ERB/ERH 文件格式：编码、命名规则、[SKIPSTART]/[SKIPEND]、最佳实践 |
+
+## 其他参考 (reference/)
+
+| 文件 | 说明 |
+|------|------|
+| `references/reference/shortcuts.md` | Emuera 快捷键一览（用户操作参考，非代码编写） |
+| `references/reference/debug.md` | 调试功能完整参考（**不推荐在开发中使用**） |
 
 ## 导航
 

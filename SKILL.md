@@ -23,7 +23,7 @@ metadata:
 
 1. **分类请求**
    - **基础语法**（注释、变量定义、赋值、表达式、运算符）：本文档「核心概念速查」章节已覆盖，如需要更多细节打开 `references/core-concepts/` 下对应文件。
-   - **命令/函数 API**（PRINT 系、IF/FOR/WHILE、CALL/JUMP、角色操作、存档等）：先查本文档「核心概念速查」中的命令速查表，再按需打开 `references/commands/` 下对应分类文件。
+   - **命令/函数 API**（PRINT 系、HTML_PRINT、IF/FOR/WHILE、CALL/JUMP、角色操作、存档等）：先查本文档「核心概念速查」中的命令速查表，再按需打开 `references/commands/` 下对应分类文件。
    - **系统流程**（@EVENTFIRST、@SHOW_SHOP、@COM 等系统函数）：打开 `references/system-flow/system-flow.md`。
    - **游戏配置**（emuera.config、_replace.csv、VariableSize.csv）：打开 `references/game-config/` 下对应文件。
    - **CSV 格式 / ERB 文件格式**：打开 `references/csv-reference/` 下对应文件。
@@ -57,7 +57,6 @@ ERA Basic（ERB）是一种运行在 Emuera 引擎上的领域特定脚本语言
 ```
 ; 单行注释（分号开头）
 ;!; Emuera 中视为有效代码，eramaker 中注释掉
-;#; 仅在调试模式下执行
 
 ; 变量赋值
 MONEY = 500
@@ -263,6 +262,7 @@ IF STRLENS(STR:0) > 10
 | `PRINTPLAIN` | 纯文本打印 |
 | `DRAWLINE` / `CUSTOMDRAWLINE` | 打印分隔线 |
 | `PRINT_IMG` / `PRINT_RECT` / `PRINT_SPACE` | 图像/矩形/空格打印 |
+| `HTML_PRINT` | HTML 标签方式输出（p/button/font/img/div 等） |
 
 ### 流程控制
 

@@ -254,4 +254,4 @@ RESTART
 ASSERT 条件式
 ```
 
-条件不成立时弹出错误信息（调试用）。
+条件不成立时弹出错误信息（调试命令，详见 `references/reference/debug.md`）。

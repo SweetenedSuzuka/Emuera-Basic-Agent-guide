@@ -15,7 +15,8 @@
 ## 我想输出文字
 
 1. `references/commands/print-system.md` — PRINT 系命令大全
-2. `references/commands/display-font.md` — 颜色/字体/对齐
+2. `references/commands/html-print.md` — HTML_PRINT 标签方式输出
+3. `references/commands/display-font.md` — 颜色/字体/对齐
 
 ## 我想做条件判断和循环
 
@@ -100,6 +101,10 @@
 
 1. `references/csv-reference/erb-format.md` — ERB/ERH 文件格式
 2. `references/csv-reference/csv-format.md` — CSV 文件格式
+
+## 我想用 HTML 风格输出文字
+
+1. `references/commands/html-print.md` — HTML_PRINT 标签系统
 
 ## 我想做数学计算
 

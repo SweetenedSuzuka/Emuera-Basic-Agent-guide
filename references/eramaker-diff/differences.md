@@ -94,7 +94,7 @@ Emuera 支持宏功能（`\e`、`\n`、`(～～)*n`）。
 Emuera 新增：
 - 行尾注释（`;` 后的内容）
 - `;!;` 开头的行（Emuera 中有效，eramaker 中注释）
-- `;#;` 开头的行（调试模式专用）
+- `;#;` 开头的行（调试模式专用，详见 `references/reference/debug.md`）
 
 ### 字符串操作
 

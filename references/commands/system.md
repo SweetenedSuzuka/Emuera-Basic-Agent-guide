@@ -22,52 +22,6 @@ FORCE_QUIT_AND_RESTART    ; 强制退出并重启
 
 ## 存档/读档
 
-### SAVEGAME / LOADGAME
-
-```
-SAVEGAME [存档槽号]   ; 存档
-LOADGAME [存档槽号]   ; 读档
-```
-
-如省略槽号则使用标准存档画面。
-
-### SAVEDATA / LOADDATA / RESETDATA
-
-```
-SAVEDATA 文件名 [, 版本号]     ; 保存变量数据
-LOADDATA 文件名                ; 加载变量数据
-RESETDATA                      ; 重置变量数据
-```
-
-### SAVEGLOBAL / LOADGLOBAL / RESETGLOBAL
-
-```
-SAVEGLOBAL      ; 保存全局变量到 global.sav
-LOADGLOBAL      ; 从 global.sav 加载全局变量
-RESETGLOBAL     ; 重置全局变量
-```
-
-### SAVECHARA / LOADCHARA
-
-```
-SAVECHARA 角色番号, 文件名     ; 保存单个角色
-LOADCHARA 角色番号, 文件名     ; 加载单个角色
-```
-
-### SAVETEXT / LOADTEXT
-
-```
-SAVETEXT 文件名, 字符串     ; 保存文字列到文件
-LOADTEXT 文件名, 变量       ; 从文件加载文字列
-```
-
-### CHKDATA / DELDATA
-
-```
-CHKDATA 文件名     ; 检查存档文件是否存在（0=无/1=有）
-DELDATA 文件名     ; 删除存档文件
-```
-
 ### SAVENOS
 
 ```
@@ -137,14 +91,6 @@ GETCONFIGS 配置名     ; 获取配置值（string）
 
 ```
 SETCONFIG 配置名, 值  ; 设置配置值
-```
-
-## 调试
-
-### DEBUGPRINT
-
-```
-DEBUGPRINT 字符串     ; 仅在调试模式下输出
 ```
 
 ### OUTPUTLOG

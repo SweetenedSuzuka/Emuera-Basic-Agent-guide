@@ -20,7 +20,7 @@ Emuera 使用 **UTF-8** 编码（eramaker 使用 Shift_JIS）。
 ```
 ; 单行注释（分号开头）
 ;!; Emuera 专用有效行（eramaker 中为注释）
-;#; 调试模式专用行
+;#; 调试模式专用行（不推荐，详见 references/reference/debug.md）
 ```
 
 ### 空行

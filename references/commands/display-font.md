@@ -121,31 +121,40 @@ PRINTCLENGTH     ; 返回当前行已使用的字符数（int）
 LINEISEMPTY      ; 返回当前行是否为空（int）
 ```
 
-### BAR / BARSTR
+### BAR / BARL / BARSTR
 
 ```
-BAR 当前值, 最大值, 长度    ; 绘制进度条
-BARSTR 当前值, 最大值, 长度 ; 返回进度条字符串（string）
+BAR 当前值, 最大值, 长度    ; 绘制进度条（不换行）
+BARL 当前值, 最大值, 长度   ; 绘制进度条（换行）
+BARSTR 当前值, 最大值, 长度 ; 返回进度条字符串（不输出）（string）
 ```
+
+以 `当前值/最大值` 的比例绘制进度条，`长度` 指定进度条的总字符数。
+
+进度条使用的字符由 `_replace.csv` 中的 `BAR文字1`（填充部分，默认 `*`）和 `BAR文字2`（空白部分，默认 `.`）决定。
 
 ### MONEYSTR
 
 ```
-MONEYSTR 金额 [, 选项]     ; 返回格式化金钱字符串
+MONEYSTR 金额 [, 选项]     ; 返回格式化金钱字符串（string）
 ```
 
-### SKIPDRW 相关
+根据 `_replace.csv` 中的 `お金の単位` 和 `単位の位置` 格式化金额。`选项` 控制格式细节（不同引擎版本行为可能不同）。
+
+### SKIPDRW / ENDSKIPDRW
 
 ```
-SKIPDRW       ; 开始跳过绘制区域
+SKIPDRW       ; 开始跳过绘制区域（此区域内的输出不会渲染到画面）
 ENDSKIPDRW    ; 结束跳过绘制区域
 ```
 
-### BAR 属性设置
+用于输出不可见的内容（如预先计算布局但不显示）。
+
+### SETBARSTYLE / SETBARTEXT
 
 ```
-SETBARSTYLE  style        ; 进度条样式
-SETBARTEXT  text          ; 进度条文字
+SETBARSTYLE 样式值       ; 设置进度条样式（具体值与 Emuera 版本相关）
+SETBARTEXT 文字           ; 设置进度条文字格式
 ```
 
 ## 跳过控制

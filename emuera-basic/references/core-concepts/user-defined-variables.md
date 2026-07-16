@@ -1,0 +1,142 @@
+# 用户定义变量
+
+`#DIM`（整数类型）和 `#DIMS`（字符串类型）用于定义自定义变量。
+
+## 定义位置与作用域
+
+| 定义位置 | 作用域 |
+|----------|--------|
+| 函数内（`@` 下） | 该函数内私有（私有变量） |
+| ERH 文件内 | 全 ERB 文件可访问（全局变量） |
+
+## 基本书写格式
+
+```
+; 私有变量（函数内）
+@FUNC_NAME
+#DIM MY_INT, 100        ; 整数类型一维数组，100 元素
+#DIMS MY_STR, 50        ; 字符串类型一维数组，50 元素
+#DIM MY_2D, 10, 20      ; 整数类型二维数组
+#DIM MY_3D, 5, 10, 15   ; 整数类型三维数组（最多三维）
+
+; 全局变量（ERH 内）
+#DIM GLOBAL_INT, 100
+#DIMS GLOBAL_STR, 50
+```
+
+命名规则：
+- 首字符不能是数字
+- 符号只能用 `_`
+- 不能与已有命令名重复（如 `PRINTFORM`、`CALL` 等不可）
+- 元素个数范围：`1 ～ 1000000`
+- 省略元素个数时默认为 `1`
+
+## 初始值设定
+
+仅一维数组支持初始值：
+
+```
+; 元素个数自动为 3
+#DIM HOGE = 1,2,3
+
+; 元素个数指定为 100，前三个元素初始化
+#DIM PUGE,100 = 4,5,6
+
+; 字符串类型
+#DIMS SHOGE = "A", "B", "C"
+
+; 元素个数与初始值数不一致会报错
+; #DIM CONST PUGE,100 = 4,5,6   ← 错误
+```
+
+## 动态变量（DYNAMIC）
+
+```
+#DIM DYNAMIC DYN_VAR, 100
+#DIMS DYNAMIC DYN_STR, 50
+```
+
+- 每次函数调用时分配，函数结束时释放
+- 递归调用时每次分配独立实例
+- 不需要手动初始化
+- 运行速度比静态变量慢
+
+## 常量（CONST）
+
+```
+#DIM CONST HOGE = 1,2,3
+#DIMS CONST SHOGE = "A", "B", "C"
+```
+
+- 必须同时设定初始值
+- 不可后续赋值修改
+- 不能与 `GLOBAL`、`SAVEDATA`、`REF`、`DYNAMIC` 同时使用
+- 只能一维
+
+## 引用类型变量（REF）
+
+```
+#DIM REF HOGE1DIM,0
+#DIM REF HOGE2DIM,0,0
+#DIM REF HOGE3DIM,0,0,0
+#DIMS REF PUGE1DIM,0
+#DIMS REF PUGE2DIM,0,0
+#DIMS REF PUGE3DIM,0,0,0
+```
+
+- 不持有实际存储，操作引用类型变量时实际操作被参照的变量
+- 用于引用传递参数
+
+## ERH 中的特殊关键字
+
+在 ERH 中定义全局变量时可用以下关键字：
+
+### SAVEDATA
+
+可保存的变量：
+
+```
+#DIM SAVEDATA MY_SAVED, 100
+#DIMS SAVEDATA MY_SAVED_STR, 50
+```
+
+保存/加载与 `DAY`、`MONEY` 等相同。
+※定义可保存的多维变量时需启用「以二进制格式保存存档数据」
+
+### CHARADATA
+
+角色变量：
+
+```
+#DIM CHARADATA C_INT, 100
+#DIMS CHARADATA C_STR, 50
+#DIM CHARADATA SAVEDATA CS_INT, 100   ; 可保存角色变量
+```
+
+使用方式与 `CFLAG` 等相同：`C_INT:MASTER:0 = 10`
+
+### GLOBAL
+
+跨存档全局变量：
+
+```
+#DIM GLOBAL G_INT, 100
+#DIMS GLOBAL G_STR, 50
+#DIM GLOBAL SAVEDATA GS_INT, 100      ; 可 SAVEGLOBAL/LOADGLOBAL
+```
+
+## 限制
+
+1. 不能使用与命令同名（`PRINTFORM`、`SELECTCASE`、`CALL`、`RETURN`、`GOTO` 等）
+2. 可以使用与函数/预处理同名但不推荐
+3. 函数内 `#DIM` 可以在函数参数中使用：
+
+```
+@FUNC_NAME, MY_INT, MY_STR
+#DIM MY_INT
+#DIMS MY_STR
+    ; 使用 MY_INT, MY_STR
+```
+
+4. 仅在函数中可使用 `DYNAMIC`、`REF`
+5. ERH 中的元素个数可用常量表达式指定，但宏不展开

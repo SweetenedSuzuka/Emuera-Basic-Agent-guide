@@ -51,12 +51,6 @@
 | `references/game-config/config.md` | emuera.config 配置项、_replace.csv 可替换项目、_Rename.csv |
 | `references/game-config/resources.md` | 资源目录结构：resources/ 文件夹、资源指定 CSV 格式、精灵与动画精灵、图像格式、内存注意事项 |
 
-## EM+EE 扩展 (emee-extensions/)
-
-| 文件 | 说明 |
-|------|------|
-| `references/emee-extensions/emee-summary.md` | EM+EE 扩展功能汇总：资源文件扩展、存档压缩、ERD 文件、HTML_PRINT 扩展、INPUT 扩展、图形/精灵扩展、别名功能等 |
-
 ## 与 eramaker 差异 (eramaker-diff/)
 
 | 文件 | 说明 |

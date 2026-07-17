@@ -110,10 +110,6 @@
 
 1. `references/commands/math-etc.md` — RAND/ABS/MAX/MIN/数组操作等
 
-## 我想了解 EM+EE 扩展
-
-1. `references/emee-extensions/emee-summary.md` — EM+EE 所有扩展功能汇总
-
 ## 我想使用图片资源/精灵
 
 1. `references/game-config/resources.md` — 资源目录结构和 CSV 格式

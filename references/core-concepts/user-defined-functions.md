@@ -253,7 +253,7 @@ X = (A != 0) && (DOUBLE(A) != 0)
 | `TRYCALLFORMF` | 带异常处理的 CALLFORMF |
 | `TRY` / `CATCH` / `ENDCATCH` / `THROW` | 异常处理块 |
 
-> 其他与函数调用相关的扩展命令（`CALLEVENT`、`CALLTRAIN`、`CALLSHARP` 等）详见 `emee-extensions/emee-summary.md` 和各自主命令文档。
+> 其他与函数调用相关的扩展命令（`CALLEVENT`、`CALLTRAIN`、`CALLSHARP` 等）详见各自主命令文档。
 
 ## 函数定义最佳实践
 

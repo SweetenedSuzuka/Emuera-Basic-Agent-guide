@@ -73,10 +73,43 @@ PRINTLC(|K|D) 字符串
 ### PRINTDATA
 
 ```
-PRINTDATA(|K|D)(|L|W)
+PRINTDATA(|K|D)(|L|W) [数值变量]
+    DATA 字符串
+    DATAFORM 格式化字符串
+    DATALIST
+        DATA 字符串
+        DATAFORM 格式化字符串
+    ENDLIST
+ENDDATA
 ```
 
-打印当前选中角色的数据（无参数）。
+从 `DATA`/`DATAFORM`/`DATALIST` 块中**等概率随机选择一个**显示。
+
+- `DATA` — 直接指定字符串
+- `DATAFORM` — 使用 PRINTFORM 风格的格式化字符串
+- `DATALIST`～`ENDLIST` — 将多行 DATA/DATAFORM 合并为一个选项（内部一个 DATA 或 DATAFORM 算一行）
+- `ENDDATA` — 结束 PRINTDATA 块
+- 可选数值变量参数：被选中的 DATA 编号（从 0 开始）存入该变量
+- 无 DATA 时不做任何操作
+- PRINTDATA 块内部只能写 DATA 系语法，不能写其他语句
+- K/D/L/W 后缀与 PRINT 系相同
+
+```
+; 随机显示一条消息
+PRINTDATA
+    DATA 你好
+    DATAFORM %NAME:MASTER%来了
+    DATA 再见
+ENDDATA
+
+; 随机选择并将编号存入 CHOICE
+PRINTDATA CHOICE
+    DATA 选项A
+    DATA 选项B
+    DATA 选项C
+ENDDATA
+; CHOICE = 0/1/2 之一
+```
 
 ### PRINTBUTTON
 
@@ -84,14 +117,23 @@ PRINTDATA(|K|D)(|L|W)
 PRINTBUTTON(|C|LC) 字符串, 返回值
 ```
 
-打印可点击的按钮。
+打印可点击的按钮。强制生成按钮（而非依赖 Emuera 的 `[数字]` 自动识别）。
 
-- `C` / `LC`：居中显示和换行
-- 返回值在按钮被点击时变为 `RESULT`
+- `C` — 右对齐（同 `PRINTC`）
+- `LC` — 左对齐（同 `PRINTLC`），自动换行
+- 返回值：按钮被点击时存入 `RESULT`（数值）或 `RESULTS`（字符串）
+- 返回值可以是**字符串**，此时配合 `INPUTS` 使用
+- 第一参数中含换行代码时会被省略且不换行
+- 虽非必须但建议保留 `[0]` 等标记以方便数字键操作者
 
 ```
-PRINTBUTTON 是, 1
-PRINTBUTTON 否, 0
+; 数值按钮（配合 INPUT）
+PRINTBUTTON "[0] 是", 0
+PRINTBUTTON "[1] 否", 1
+
+; 字符串按钮（配合 INPUTS）
+PRINTBUTTON "确认", "OK"
+PRINTBUTTON "取消", "CANCEL"
 ```
 
 ### PRINTPLAIN

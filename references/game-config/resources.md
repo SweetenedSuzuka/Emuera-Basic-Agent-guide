@@ -140,6 +140,16 @@ SPRITECREATE "player_walk", 0
 图像文件需为 **bmp**、**jpg**、**png**、**webp** 格式之一，放在 `resources` 文件夹内。
 - 在 ERB 中也可使用 `GCREATEFROMFILE` 指令动态生成图形对象。
 
+> **注意**：当绘图接口设为 `WINAPI` 时，不支持 Alpha 混合（半透明渲染）。如需透明效果，请使用 `Graphics` 或 `TextRenderer` 接口。
+
+## font 文件夹
+
+EE+EM 支持从 `font` 文件夹动态加载字体文件（`.ttf`、`.otf`）。
+
+- 将字体文件放在 `font` 文件夹内，引擎启动时自动加载
+- 加载后可在 `SETFONT`、`GSETFONT` 等命令中使用这些字体
+- 无需将字体安装到系统，方便游戏分发自带所需字体
+
 ---
 
 ## 内存注意事项

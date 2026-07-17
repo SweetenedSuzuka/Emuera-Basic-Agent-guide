@@ -343,10 +343,13 @@ CALLSHARP 函数名字符串 [, 参数]
 ## BEGIN
 
 ```
-BEGIN TITLE    ; 回到标题
-BEGIN FIRST    ; 开始新游戏
-BEGIN SHOP     ; 进入商店
-BEGIN TRAIN    ; 进入调教
+BEGIN TITLE       ; 回到标题
+BEGIN FIRST       ; 开始新游戏
+BEGIN SHOP        ; 进入商店
+BEGIN TRAIN       ; 进入调教
+BEGIN AFTERTRAIN  ; 进入调教后阶段（@EVENTEND）
+BEGIN ABLUP       ; 进入能力提升阶段
+BEGIN TURNEND     ; 进入回合结束阶段（@EVENTTURNEND）
 ```
 
 切换游戏阶段，中断当前执行。

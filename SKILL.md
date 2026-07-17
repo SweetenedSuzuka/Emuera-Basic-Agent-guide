@@ -301,7 +301,7 @@ IF STRLENS(STR:0) > 10
 | `TRYCCALL` / `TRYCJUMP` / `TRYCGOTO` | 函数存在性判断（不存在→CATCH） |
 | `TRYCALLFORM` / `TRYJUMPFORM` / `TRYGOTOFORM` | 格式化字符串容错调用（静默跳过） |
 | `TRYCALLLIST` / `FUNC` / `ENDFUNC` | 候选函数列表 |
-| `BEGIN` | 切换到游戏阶段 |
+| `BEGIN` | 切换到游戏阶段（TITLE/FIRST/SHOP/TRAIN/AFTERTRAIN/ABLUP/TURNEND） |
 
 ### 输入
 
@@ -331,7 +331,7 @@ IF STRLENS(STR:0) > 10
 
 | 命令 | 说明 |
 |------|------|
-| `BEGIN` | 切换游戏阶段（FIRST/SHOP/TRAIN/TITLE 等）|
+| `BEGIN` | 切换游戏阶段（TITLE/FIRST/SHOP/TRAIN/AFTERTRAIN/ABLUP/TURNEND）|
 | `QUIT` / `RESTART` / `FORCE_QUIT` | 退出/重启 |
 | `SAVEGAME` / `LOADGAME` | 存档/读档 |
 | `SAVEDATA` / `LOADDATA` / `RESETDATA` | 数据存取 |

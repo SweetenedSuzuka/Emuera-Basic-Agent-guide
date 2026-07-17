@@ -14,7 +14,7 @@ INPUTS [默认值, 允许点击, 允许跳过]
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | 第1参数 | int/string | 默认值（空输入时使用）。省略时 `INPUT` 要求重新输入，`INPUTS` 接受空字符串 |
-| 第2参数 | int | 非 0 时，鼠标点击等同于按回车：`INPUTS` 时 `RESULTS` 变为空字符串、`RESULTS:1` 存按钮索引；左键 → `RESULT:1=1`，右键 → `RESULT:1=2`。同时按 Shift/Ctrl/Alt 则 `RESULT:2` 保存按键状态（bit 16/17/18）。省略时不启用此功能 |
+| 第2参数 | int | 非 0 时，鼠标点击等同于按回车：`INPUTS` 时 `RESULTS` 变为空字符串、`RESULTS:1` 存按钮索引；左键 → `RESULT:1=1`，右键 → `RESULT:1=2`，中键 → `RESULT:1=3`。同时按 Shift/Ctrl/Alt 则 `RESULT:2` 保存按键状态（bit 16/17/18）。省略时不启用此功能 |
 | 第3参数 | int | 非 0 时，右键跳过期间不等待输入，但仍应用默认值。与第 2 参数联用时默认值分别流入 `RESULT:1`/`RESULTS:1`，不联用则流入 `RESULT:0`/`RESULTS:0`。省略时不启用此功能 |
 
 ```
@@ -183,17 +183,30 @@ int MOUSEX    ; 鼠标 X 坐标
 int MOUSEY    ; 鼠标 Y 坐标
 ```
 
-## GETNUM — 从字符串提取数值
+## GETNUM — 查找变量的 CSV/ERD 名称索引
 
 ```
-GETNUM 源字符串, 目标变量名
+int GETNUM(变量标识符, 关键词[, 维度])
 ```
 
-从字符串中解析数值并写入指定变量。
+在指定变量的 CSV/ERD 名称定义中查找与关键词匹配的**元素序号**。
+
+- 第一参数：变量标识符（如 `ABL`、`TALENT`、`FLAG` 等），不是字符串
+- 第二参数：要查找的名称字符串
+- 第三参数（EE+EM）：维度编号（1/2/3），用于 ERD 多维变量的名称查找
+- 返回值：匹配的数组索引，未找到返回 `-1`
 
 ```
-GETNUM "价格: 500 G", MONEY
-; MONEY = 500
+; 查找 ABL 中 "体力" 的索引
+X = GETNUM(ABL, "体力")
+; 如果 abl.csv 中 0,体力 → X = 0
+
+; 查找 FLAG 中 "事件完成" 的索引
+X = GETNUM(FLAG, "事件完成")
+
+; 查找 ERD 定义的多维变量名称（EE+EM）
+X = GETNUM(CDFLAG, "恋爱", 2)
+; 在 cdflag2.csv（第二维）中查找 "恋爱" 的索引
 ```
 
 ## BINPUT / BINPUTS — 受限按钮输入

@@ -5,10 +5,13 @@
 ### BEGIN
 
 ```
-BEGIN TITLE    ; 回到标题画面
-BEGIN FIRST    ; 开始新游戏
-BEGIN SHOP     ; 进入商店阶段
-BEGIN TRAIN    ; 进入调教阶段
+BEGIN TITLE       ; 回到标题画面
+BEGIN FIRST       ; 开始新游戏
+BEGIN SHOP        ; 进入商店阶段
+BEGIN TRAIN       ; 进入调教阶段
+BEGIN AFTERTRAIN  ; 进入调教后阶段（@EVENTEND）
+BEGIN ABLUP       ; 进入能力提升阶段
+BEGIN TURNEND     ; 进入回合结束阶段（@EVENTTURNEND）
 ```
 
 ### QUIT / RESTART / FORCE_QUIT

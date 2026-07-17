@@ -119,6 +119,62 @@ CSV 加载完成后调用。`BEGIN TITLE` 也会触发。
 - 宏可多重展开（宏 A 引用宏 B），但存在循环引用时引擎会检测并报错。
 - 空宏（`#DEFINE HOGE` 无替换内容）合法，用于 `[IF HOGE]` 条件判断。
 
+### 宏展开范围
+
+宏展开**只发生在式中**，不在命令参数字符串中展开：
+
+```
+#DEFINE FIVE 5
+
+; 式中展开
+X = FIVE              ; X = 5（展开）
+
+; 命令参数不展开
+PRINT FIVE             ; 打印 "FIVE"（不展开）
+PRINTV FIVE            ; 打印 5（PRINTV 的参数是表达式，会展开）
+```
+
+### 宏的文本替换陷阱
+
+由于宏是**纯文本替换**（不是值替换），多token宏在复合表达式中可能产生意外结果：
+
+```
+#DEFINE SIX 1 + 5
+#DEFINE NINE 8 + 1
+
+X = SIX * NINE
+; 展开为：X = 1 + 5 * 8 + 1
+; 结果：X = 42（而非 54）
+; 因为 * 优先级高于 +
+```
+
+**解决方案**：用括号保护宏定义：
+
+```
+#DEFINE SIX (1 + 5)
+#DEFINE NINE (8 + 1)
+
+X = SIX * NINE
+; 展开为：X = (1 + 5) * (8 + 1)
+; 结果：X = 54
+```
+
+### 宏的典型用法
+
+```
+; 常量字符串
+#DEFINE HOGE "ほげほげ"
+
+; 变量别名
+#DEFINE PIYO A
+
+; 数组元素别名
+#DEFINE FUGA DA:10
+
+; 函数表达式
+#DEFINE HOGERA LOCAL + MY_FUNC(X, Y)
+```
+
 ## 预处理器
 
 ### `#DEFINE` / `#ENDDEFINE`

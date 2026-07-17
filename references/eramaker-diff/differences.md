@@ -96,6 +96,42 @@ Emuera 新增：
 - `;!;` 开头的行（Emuera 中有效，eramaker 中注释）
 - `;#;` 开头的行（调试模式专用，详见 `references/reference/debug.md`）
 
+#### 与 `[SKIPSTART]` 和 `[SKIPEND]` 的联用
+
+通过与 `[SKIPSTART]` 和 `[SKIPEND]` 的联用，可以实现一些代码只在 Emuera 中执行或只在 eramaker 中执行。
+
+##### 只在 Emuera 中执行（使用 `!;` 前缀联用）
+
+```
+;!;[SKIPSTART]
+PRINTW 此脚本无法在Emuera以外运行  
+QUIT  
+;!;[SKIPEND]
+```
+
+虽然 `;` 是注释标志，但是 `;!;` 在 Emuera 有特殊处理。
+Emuera 遇到 `;!;` 开头的行时，会去掉 `;!;` 前缀后再解析剩余内容。
+
+上述写法在 Emuera 中等效于：
+
+```
+[SKIPSTART]
+PRINTW 此脚本无法在Emuera以外运行  
+QUIT  
+[SKIPEND]
+```
+
+因此会被跳过。
+
+而在 eramaker 中等效于：
+
+```
+PRINTW 此脚本无法在Emuera以外运行  
+QUIT  
+```
+
+即前后的 `;!;` 被当作了注释，因此里面的代码被执行了。
+
 ### 字符串操作
 
 Emuera 新增：

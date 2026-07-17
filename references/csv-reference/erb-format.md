@@ -49,7 +49,8 @@ PRINT 你好; 注释  ; 会打印「你好; 注释」
 
 ### [SKIPSTART] / [SKIPEND]
 
-预处理指令。`[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行不会被执行。常规 Emuera 开发中不常用。
+预处理指令。`[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行不会被执行。
+一般用于大段注释，但不常用。
 
 ```
 [SKIPSTART]

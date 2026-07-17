@@ -9,8 +9,8 @@ LOADGAME
 
 **均无参数**，只能在 `SHOP` 阶段调用。
 
-- `SAVEGAME` — 呼出存档画面
-- `LOADGAME` — 呼出读档画面
+- `SAVEGAME` — 打开存档画面
+- `LOADGAME` — 打开读档画面
 
 ### 存档流程
 
@@ -65,7 +65,7 @@ LOADCHARA filename
 **SAVECHARA**：
 - 第1参数 `filename`（string）：文件名（实际保存为 `chara_*.dat`）
 - 第2参数 `memo`（string）：存档备注，可通过 `CHKCHARADATA` 读取
-- 第3参数起（int，可多个）：要保存的角色登録番号（列表位置 ID）
+- 第3参数起（int，可多个）：要保存的角色登记编号（列表位置 ID）
 - dat 文件夹不存在时会自动创建
 
 **LOADCHARA**：
@@ -157,6 +157,5 @@ PUTFORM 格式化字符串
 
 ## 存档数据格式
 
-- eramaker 使用文本格式（CSV 式）
-- Emuera 默认使用文本格式，可选择「セーブデータをバイナリ形式で保存する」切换为二进制格式
+- 默认使用文本格式，可选择配置项「セーブデータをバイナリ形式で保存する」切换为二进制格式
 - 二进制格式支持 `#DIMS SAVEDATA` 的多维保存

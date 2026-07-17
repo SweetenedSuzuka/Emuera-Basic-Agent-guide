@@ -27,6 +27,13 @@ metadata:
    - **系统流程**（@EVENTFIRST、@SHOW_SHOP、@COM 等系统函数）：打开 `references/system-flow/system-flow.md`。
    - **游戏配置**（emuera.config、_replace.csv、VariableSize.csv）：打开 `references/game-config/` 下对应文件。
    - **CSV 格式 / ERB 文件格式**：打开 `references/csv-reference/` 下对应文件。
+   - **资源与图形**（resources/ 文件夹、精灵、动画精灵、图像格式）：打开 `references/game-config/resources.md`。
+   - **HTML_PRINT 标签**（div、clearbutton、px 单位等）：打开 `references/commands/html-print.md`。
+   - **INPUT 命令**（鼠标点击、右击跳过等参数）：打开 `references/commands/input.md`。
+   - **变量与存档**（ERD 文件、XML/MAP/DT 存档）：打开 `references/core-concepts/variables.md` 和相关命令文档。
+   - **使用方法与宏**（键盘宏、菜单、快捷键）：打开 `references/getting-started/usage.md`。
+   - **术语定义**（函数/命令/事件函数/预处理器等概念区分）：打开 `references/glossary.md`。
+   - **用户定义函数**（@函数、参数机制、式中函数 #FUNCTION/#FUNCTIONS）：打开 `references/core-concepts/user-defined-functions.md`。
    - **如果必须兼容旧版 eramaker**：打开 `references/eramaker-diff/differences.md`（仅当用户明确要求兼容 eramaker 时才需要）。
    - **不确定领域**：先查 `references/TASK_MAP.md`，再通过 `references/INDEX.md` 精确定位。
 

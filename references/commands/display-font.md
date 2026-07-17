@@ -106,7 +106,7 @@ REDRAW 1   ; 启用自动重绘
 CURRENTREDRAW   ; 返回当前 REDRAW 状态（int）
 ```
 
-## 显示信息参照
+## 显示信息参考
 
 ### PRINTCPERLINE / PRINTCLENGTH
 

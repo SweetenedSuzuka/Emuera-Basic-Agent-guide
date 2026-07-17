@@ -6,7 +6,7 @@ ERB 文件放在游戏目录下的 `ERB` 文件夹内。
 
 ## 编码
 
-Emuera 使用 **UTF-8** 编码（eramaker 使用 Shift_JIS）。
+Emuera 使用 **UTF-8** 编码。
 
 ## 扩展名
 
@@ -19,8 +19,6 @@ Emuera 使用 **UTF-8** 编码（eramaker 使用 Shift_JIS）。
 
 ```
 ; 单行注释（分号开头）
-;!; Emuera 专用有效行（eramaker 中为注释）
-;#; 调试模式专用行（不推荐，详见 references/reference/debug.md）
 ```
 
 ### 空行
@@ -35,12 +33,9 @@ Emuera 使用 **UTF-8** 编码（eramaker 使用 Shift_JIS）。
 
 一个命令必须在一行内写完。使用 `{ }` 可跨行连接。
 
-### 不要行尾注释符号
-
-eramaker 不支持行尾 `;` 注释，Emuera 支持：
+### 行尾注释
 
 ```
-; Emuera 中有效
 A = B ; 行尾注释
 ```
 
@@ -54,21 +49,11 @@ PRINT 你好; 注释  ; 会打印「你好; 注释」
 
 ### [SKIPSTART] / [SKIPEND]
 
+预处理指令。`[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行不会被执行。常规 Emuera 开发中不常用。
+
 ```
 [SKIPSTART]
-; eramaker 中跳过此区间
-[SKIPEND]
-```
-
-与 `;!;` 配合实现跨引擎兼容：
-
-```
-;!;[SKIPSTART]
-PRINTW Emuera专用代码
-;!;[SKIPEND]
-
-[SKIPSTART]
-; eramaker专用代码
+    ; 此处的代码不会被 Emuera 执行
 [SKIPEND]
 ```
 

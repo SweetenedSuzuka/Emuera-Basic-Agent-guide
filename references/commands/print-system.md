@@ -59,7 +59,7 @@ PRINTFORMDL {MONEY}        ; 格式化 + 默认色 + 换行
 PRINTSINGLE(|V|S|FORM|FORMS)(|K|D) 字符串
 ```
 
-PRINT 但将复数字符视为一个字符单元（用于处理全半角混合时的对齐）。
+PRINT 但将多个字符视为一个字符单元（用于处理全半角混合时的对齐）。
 
 ### PRINTC / PRINTLC
 
@@ -148,12 +148,22 @@ PRINT_SHOPITEM     ; 打印商店物品
 ### PRINT_IMG
 
 ```
-PRINT_IMG 文件路径 [, x, y, z]
-PRINT_IMG 文件路径, 字符串 [, x, y, z]
-PRINT_IMG 文件路径, 字符串, 2D变量 [, x, y, z]
+PRINT_IMG src
+PRINT_IMG src, width, height, ypos
+PRINT_IMG src, srcb, width, height, ypos
+PRINT_IMG src, srcb, srcm, width, height, ypos
 ```
 
 显示图像。
+
+| 参数 | 说明 |
+|------|------|
+| `src` | 通常状态的图片文件路径 |
+| `srcb` | 鼠标悬停时显示的图片（可选） |
+| `srcm` | 蒙版图。鼠标悬停时，光标下方蒙版图颜色（RGB 部分）会存入 `RESULT:3`（`INPUTMOUSEKEY` 时为 `RESULT:6`） |
+| `width` | 图像宽度 |
+| `height` | 图像高度 |
+| `ypos` | 纵向偏移 |
 
 ### PRINT_RECT
 
@@ -171,6 +181,16 @@ PRINT_SPACE 值
 ```
 
 打印指定数量的空格。
+
+### px 像素指定
+
+`PRINT_IMG`、`PRINT_RECT`、`PRINT_SPACE` 的整数型参数后面可以追加 `px`（大小写不敏感），表示按像素指定。不加 `px` 则按字体大小的百分率解释。
+
+```
+PRINT_IMG "icon", (48+A) px, 48 px
+PRINT_RECT 0, 0, 300 px, 200 px
+PRINT_SPACE 200 px
+```
 
 ### PRINTN 系（Emuera.NET 专用）
 

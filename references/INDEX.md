@@ -16,6 +16,7 @@
 | `references/core-concepts/in-expression-functions.md` | 式中函数（内联函数）：内置函数一览与使用方法 |
 | `references/core-concepts/header-files.md` | ERH 头文件：全局变量定义、SAVEDATA/CHARADATA/GLOBAL 关键字 |
 | `references/core-concepts/preprocessor.md` | 函数定义、参数传递、宏定义(#DEFINE)、系统函数一览 |
+| `references/core-concepts/user-defined-functions.md` | 用户定义函数：一般函数定义与调用、参数机制、引用传递、式中函数（#FUNCTION/#FUNCTIONS/RETURNF）、CALL 系命令一览 |
 
 ## 命令参考 (commands/)
 
@@ -48,6 +49,13 @@
 | 文件 | 说明 |
 |------|------|
 | `references/game-config/config.md` | emuera.config 配置项、_replace.csv 可替换项目、_Rename.csv |
+| `references/game-config/resources.md` | 资源目录结构：resources/ 文件夹、资源指定 CSV 格式、精灵与动画精灵、图像格式、内存注意事项 |
+
+## EM+EE 扩展 (emee-extensions/)
+
+| 文件 | 说明 |
+|------|------|
+| `references/emee-extensions/emee-summary.md` | EM+EE 扩展功能汇总：资源文件扩展、存档压缩、ERD 文件、HTML_PRINT 扩展、INPUT 扩展、图形/精灵扩展、别名功能等 |
 
 ## 与 eramaker 差异 (eramaker-diff/)
 
@@ -62,12 +70,24 @@
 | `references/csv-reference/csv-format.md` | CSV 文件格式：chara*.csv、item.csv、abl.csv、str.csv 等完整说明 |
 | `references/csv-reference/erb-format.md` | ERB/ERH 文件格式：编码、命名规则、[SKIPSTART]/[SKIPEND]、最佳实践 |
 
+## 入门指南 (getting-started/)
+
+| 文件 | 说明 |
+|------|------|
+| `references/getting-started/usage.md` | Emuera 使用方法：运行环境、基本操作、键盘宏、菜单功能 |
+
 ## 其他参考 (reference/)
 
 | 文件 | 说明 |
 |------|------|
 | `references/reference/shortcuts.md` | Emuera 快捷键一览（用户操作参考，非代码编写） |
 | `references/reference/debug.md` | 调试功能完整参考（**不推荐在开发中使用**） |
+
+## 术语 (glossary/)
+
+| 文件 | 说明 |
+|------|------|
+| `references/glossary.md` | 术语表：启动模式、窗口/对话框、函数相关术语、变量相关术语、行/语句/表达式 |
 
 ## 导航
 

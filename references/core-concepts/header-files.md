@@ -99,5 +99,3 @@ ERB 中使用：
 
 1. ERH 中的 `#DIM` 不支持 `DYNAMIC`、`REF` 关键字
 2. 元素个数可用常量表达式指定，但宏不展开
-3. Emuera 读取所有 `*.ERH`；eramakerEX 不适用 `_rename.csv` 到 `*.ERH`
-4. 使用 `*.ERH` 会失去与 `eramakerEX` 的兼容性

@@ -10,7 +10,7 @@ ADDCHARA charaNo(, charaNo, ...)
 
 从 `chara*.csv` 中读取指定编号的角色定义并添加角色。可一次添加多个。
 
-- 参数为角色定义编号（`chara*.csv` 中的 `番号` 列）
+- 参数为角色定义编号（`chara*.csv` 中的 `番号` 列，即登记编号）
 - Emuera 支持一次传入多个角色定义编号
 
 ```
@@ -55,7 +55,7 @@ ADDVOIDCHARA
 DELCHARA charaID(, charaID, ...)
 ```
 
-删除指定登録番号（列表位置）的角色。Emuera 支持一次删除多个。与 ADDCHARA 不同，DELCHARA 的参数是列表位置 ID 而非 CSV 定义编号。
+删除指定登记编号（列表位置）的角色。Emuera 支持一次删除多个。与 ADDCHARA 不同，DELCHARA 的参数是列表位置 ID 而非 CSV 定义编号。
 
 ### DELALLCHARA
 
@@ -70,7 +70,7 @@ DELALLCHARA
 ### COPYCHARA
 
 ```
-COPYCHARA 源角色番号, 目标角色番号
+COPYCHARA 源角色编号, 目标角色编号
 ```
 
 复制角色数据（覆盖目标）。
@@ -78,7 +78,7 @@ COPYCHARA 源角色番号, 目标角色番号
 ### SWAPCHARA
 
 ```
-SWAPCHARA 角色番号A, 角色番号B
+SWAPCHARA 角色编号A, 角色编号B
 ```
 
 交换两个角色的所有数据。
@@ -146,7 +146,7 @@ SORTCHARA charaVariable, FORWARDorBACK
 
 按指定角色变量排序角色列表。
 
-- 第1参数 `charaVariable` 可省略（省略时按角色番号 `NO` 排序）
+- 第1参数 `charaVariable` 可省略（省略时按角色编号 `NO` 排序）
 - 第2参数 `FORWARD`（升序）或 `BACK`（降序），可省略（默认升序）
 - 排序键可以是字符串变量（如 `NAME`）、数值变量（如 `NO`）或数组变量（如 `CFLAG:0`）
 - `MASTER` 不参与排序
@@ -158,7 +158,7 @@ SORTCHARA charaVariable, FORWARDorBACK
 ### CHKCHARADATA
 
 ```
-CHKCHARADATA 角色番号, CSV文件名, 键名
+CHKCHARADATA 角色编号, CSV文件名, 键名
 ```
 
 检查角色 CSV 数据。结果存入 `RESULT`。
@@ -174,7 +174,7 @@ FIND_CHARADATA CSV文件名, 键名, 值
 ### CHKDATA
 
 ```
-CHKDATA 角色番号, 数据项名, 值
+CHKDATA 角色编号, 数据项名, 值
 ```
 
 检查指定角色数据项。
@@ -184,7 +184,7 @@ CHKDATA 角色番号, 数据项名, 值
 ### DOTRAIN
 
 ```
-DOTRAIN 角色番号, 命令编号
+DOTRAIN 角色编号, 命令编号
 ```
 
 对指定角色执行调教命令。

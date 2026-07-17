@@ -109,3 +109,26 @@
 ## 我想做数学计算
 
 1. `references/commands/math-etc.md` — RAND/ABS/MAX/MIN/数组操作等
+
+## 我想了解 EM+EE 扩展
+
+1. `references/emee-extensions/emee-summary.md` — EM+EE 所有扩展功能汇总
+
+## 我想使用图片资源/精灵
+
+1. `references/game-config/resources.md` — 资源目录结构和 CSV 格式
+2. `references/commands/graphics.md` — 图形/精灵命令
+
+## 我想了解 Emuera 的使用方法
+
+1. `references/getting-started/usage.md` — 启动、操作、宏、菜单
+2. `references/reference/shortcuts.md` — 快捷键一览
+
+## 我想了解专业术语
+
+1. `references/glossary.md` — ERB/Emuera 术语表
+
+## 我想定义自己的函数
+
+1. `references/core-concepts/user-defined-functions.md` — 一般函数与式中函数
+2. `references/core-concepts/preprocessor.md` — 函数属性与预处理器

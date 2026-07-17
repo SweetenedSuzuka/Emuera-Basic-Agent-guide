@@ -4,7 +4,7 @@
 
 ### `@EVENTLOAD`
 加载存档后立即调用。可多重定义（事件函数）。
-未定义时跳转至 `@SHOW_SHOP`（与 eramaker 行为相同）。
+未定义时跳转至 `@SHOW_SHOP`。
 
 ### `@TITLE_LOADGAME`
 标准标题画面选择「加载」时调用。
@@ -144,21 +144,17 @@ CALL TEST(A)
 
 ### `[SKIPSTART]` ～ `[SKIPEND]` — 跳过代码块
 
-Emuera 忽略 `[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行。用于兼容 eramaker：
+预处理指令。`[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行不会被执行。是否需要此指令取决于具体的兼容性需求，常规 Emuera 开发中不常用。
 
 ```
 [SKIPSTART]
-    ; eramaker 专用代码，Emuera 直接跳过
+    ; 此处的代码不会被 Emuera 执行
 [SKIPEND]
-
-;!;[SKIPSTART]
-    ; 只有 Emuera 执行的代码
-;!;[SKIPEND]
 ```
 
 ### `[IF XXX]` ～ `[ELSEIF]` ～ `[ELSE]` ～ `[ENDIF]` — 宏条件编译
 
-根据某个宏 `XXX` 是否被 `#DEFINE` 定义来决定代码块是否被编译：
+根据某个宏 `XXX` 是否被 `#DEFINE` 定义来决定代码块是否被编译。**在 `.ERB` 和 `.ERH` 中均可使用**。
 
 ```
 [IF FEATURE_X]
@@ -171,6 +167,27 @@ Emuera 忽略 `[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行。用于兼容 er
 ```
 
 这允许通过宏开关控制代码的包含/排除（如可选模块等）。
+
+#### `ISDEFINED` 检查
+
+`[IF XXX]` 本质上等价于 `ISDEFINED(XXX)` 检查——判断宏是否已被 `#DEFINE` 定义。也可以用显式写法：
+
+```
+[IF ISDEFINED(FEATURE_X)]
+    ; 与 [IF FEATURE_X] 等效
+[ENDIF]
+```
+
+#### 不支持表达式与式中函数
+
+`[IF XXX]` 是预处理器指令，**在预处理器级别工作，不支持表达式运算或式中函数**。以下写法无效：
+
+```
+[IF VERSION >= 2]        ; ❌ 不支持表达式比较
+[IF SOME_FUNC()]         ; ❌ 不支持式中函数调用
+```
+
+条件编译只能判断宏是否已定义（以及 `[IF_DEBUG]` / `[IF_NDEBUG]` 判断调试模式），不能进行数值比较或逻辑运算。
 
 ### `[IF_DEBUG]` / `[IF_NDEBUG]` — 调试模式条件
 
@@ -218,16 +235,69 @@ Emuera 忽略 `[SKIPSTART]` 到 `[SKIPEND]` 之间的所有行。用于兼容 er
 
 在 ERB 代码中直接写宏名称即可展开。
 
-### `#UNDEF`
+### `#UNDEF` 取消宏定义
 
-取消宏定义。
+```
+#UNDEF MACRO_NAME
+```
+
+取消之前用 `#DEFINE` 定义的宏。只能写在 `.ERH` 中。
+
+取消后，该宏名不再被识别，`ISDEFINED(MACRO_NAME)` 返回 0，条件编译 `[IF MACRO_NAME]` 也不会命中。
+
+### 空宏定义
+
+```
+#DEFINE MACRO_NAME
+; 没有 #ENDDEFINE，没有宏体
+```
+
+空宏没有替换内容，在代码中引用时不会展开为任何文本。空宏的意义在于条件编译：
+
+```
+#DEFINE FEATURE_ENABLED
+
+[IF FEATURE_ENABLED]
+    ; 此块被编译
+[ELSE]
+    ; 此块被跳过
+[ENDIF]
+```
+
+`ISDEFINED(FEATURE_ENABLED)` 返回 1，但因为宏体为空，代码中写 `FEATURE_ENABLED` 不会产生任何输出。
+
+### 宏的循环参照
+
+Emuera 会检测宏的自我参照和循环参照，防止无限展开：
+
+```
+#DEFINE A
+    B
+#ENDDEFINE
+
+#DEFINE B
+    A
+#ENDDEFINE
+; 这会导致无限展开，Emuera 会报错
+```
+
+同样，宏直接引用自身也会被检测：
+
+```
+#DEFINE A
+    A
+#ENDDEFINE
+; 自我参照，也会报错
+```
+
+引擎在预处理阶段展开宏时会追踪展开链，一旦发现同一个宏在展开链中出现第二次，即判定为循环参照并报错终止。
 
 ## 预处理器指令一览
 
 | 指令 | 说明 |
 |------|------|
 | `#DEFINE` / `#ENDDEFINE` | 定义宏（文本替换） |
-| `#UNDEF` | 取消宏 |
+| `#UNDEF` | 取消宏定义（只能写在 .ERH 中） |
 | `#DIM` / `#DIMS` | 定义变量 |
 | `#LOCALSIZE` / `#LOCALSSIZE` | 设定当前函数内 LOCAL/LOCALS 的元素个数上限 |
 | `#FUNCTION` | 声明当前函数为式中函数（返回数值），必须用 `RETURNF` 返回 |

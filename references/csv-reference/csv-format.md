@@ -4,7 +4,7 @@
 
 ## CSV 基本规格
 
-- 编码：Shift_JIS（eramaker）/ UTF-8（Emuera）
+- 编码：UTF-8
 - 扩展名：`.CSV`
 - 位置：放在 `CSV` 文件夹内
 - 分隔符：半角逗号 `,`
@@ -17,9 +17,7 @@
 番号,名称,称呼,能力,1,2,3,...,素质,0,1,2,...,基础,100,200,...
 ```
 
-支持：
-- `chara01.csv`、`chara02.csv` 等（eramaker 兼容）
-- `chara101.csv`、`charaABC.csv` 等（Emuera 扩展）
+- 支持 `chara01.csv`、`charaABC.csv` 等命名
 - 所有匹配 `chara*.csv` 的文件都会被加载
 
 ### 能力名称（abl.csv）
@@ -173,8 +171,8 @@
 | `source.csv` | `SOURCENAME`, `SOURCE` | 调教来源名称 |
 | `tcvar.csv` | `TCVARNAME` | 回合角色变量名称 |
 | `cdflag1.csv` / `cdflag2.csv` | `CDFLAGNAME1` / `CDFLAGNAME2` | 三维标志名称 |
-| `global.csv` | `GLOBALNAME` | グローバル变量名称 |
-| `globals.csv` | `GLOBALSNAME` | グローバル字符串名称 |
+| `global.csv` | `GLOBALNAME` | 全局变量名称 |
+| `globals.csv` | `GLOBALSNAME` | 全局字符串名称 |
 
 ## gamebase.csv
 

@@ -122,7 +122,7 @@ IF ABS(A - B) > STRLENS(STR:0)
 | `TOLOWER` | `str TOLOWER(str s)` | 英文字母转小写 |
 | `TOHALF` | `str TOHALF(str s)` | 全角字符转半角（无对应半角的字符保持原样） |
 | `TOFULL` | `str TOFULL(str s)` | 半角字符转全角 |
-| `TOSTR` | `str TOSTR(int value(, str format))` | 数值转字符串；format 为 C# 书式字符串（如 `"D8"`、`"X"`） |
+| `TOSTR` | `str TOSTR(int value(, str format))` | 数值转字符串；format 为 C# 格式字符串（如 `"D8"`、`"X"`） |
 | `TOINT` | `int TOINT(str s)` | 字符串转数值；不可解析时返回 0 |
 | `ISNUMERIC` | `int ISNUMERIC(str s)` | s 可解析为数值返回 1，否则 0 |
 | `STRFORM` | `str STRFORM(str formedString)` | 将 formedString 按 PRINTFORM 规则展开后返回 |
@@ -243,3 +243,42 @@ IF ABS(A - B) > STRLENS(STR:0)
 | `EXISTMETH` | `int EXISTMETH(str functionName)` | 自定义式中函数 functionName 存在则返回类型码（1=#FUNCTION，2=#FUNCTIONS），不存在返回 0 |
 | `GETMETH` | `int GETMETH(str functionName(, int defaultValue, any argument...))` | 以字符串调用数值型式中函数；defaultValue 为函数不存在时的默认返回值 |
 | `GETMETHS` | `str GETMETHS(str functionName(, str defaultValue, any argument...))` | 以字符串调用字符串型式中函数；defaultValue 为函数不存在时的默认返回值 |
+
+## 短絡評価与式中函数
+
+逻辑运算符 `&&` 和 `||` 采用短絡評価（短路求值）：
+
+- `A && B`：如果 A 为假（0），B 不会被求值
+- `A || B`：如果 A 为真（非0），B 不会被求值
+
+这意味着如果式中函数出现在短絡評価跳过的部分，它不会被执行：
+
+```
+A = 0
+X = (A != 0) && DOUBLE(A)   ; DOUBLE 不会被调用
+```
+
+**编写式中函数时必须注意**：
+
+- 不要把副作用逻辑（修改全局变量、输出等）放入式中函数
+- 式中函数应只做计算并返回结果
+- 因为短絡評価可能导致函数不执行，依赖式中函数的副作用的代码是不可靠的
+
+## 伪变量与式中函数的区别
+
+以下看起来像式中函数，但实际上是**伪变量**——它们每次求值时重新计算，但不接受参数：
+
+- `RAND`：随机数，每次求值时重新生成
+- `COUNT`：REPEAT 循环的计数器
+- `CHARANUM`：当前角色数
+
+这意味着在同一个表达式里，`RAND(100) + RAND(100)` 中的两个 `RAND` 会独立生成随机数——它们不是被"调用"两次，而是各自独立求值。
+
+因此 `RAND` 有两种书写形式：
+
+```
+A = RAND(100)           ; 0～99
+A = RAND(1, 101)        ; 1～100
+```
+
+使用 `RANDOMIZE` 命令初始化随机数种子。

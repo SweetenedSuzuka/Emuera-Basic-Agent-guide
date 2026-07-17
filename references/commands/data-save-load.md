@@ -159,3 +159,42 @@ PUTFORM 格式化字符串
 
 - 默认使用文本格式，可选择配置项「セーブデータをバイナリ形式で保存する」切换为二进制格式
 - 二进制格式支持 `#DIMS SAVEDATA` 的多维保存
+
+## 存档压缩
+
+在 `emuera.config` 中设置「セーブデータを圧縮して保存する」为 `YES`（仅当「セーブデータをバイナリ形式で保存する」也为 `YES` 时生效），存档数据将被压缩存储，减小文件体积。
+
+> 压缩后的存档与旧版/原版 Emuera 不兼容。
+
+## XML / MAP / DataTable 的存档持久化
+
+通过 `CSV` 文件夹内的 `VarExt*.csv` 文件，可以指定哪些 XML、MAP、DataTable 随存档一起保存。
+
+```
+; VarExtSample.CSV
+; 跨存档全局保存（global.sav）
+GLOBAL_MAPS, MyMap, MyMap2
+GLOBAL_XMLS, 0, MyXml
+GLOBAL_DTS, db
+
+; 普通存档保存（save*.sav）
+SAVE_MAPS, MyMap4
+SAVE_XMLS, 1, MyXml2
+SAVE_DTS, mydb1
+
+; 不受 RESETDATA 影响的静态保存
+STATIC_MAPS, MyMap5
+STATIC_XMLS, 1, MyXml3
+STATIC_DTS, db2
+```
+
+| 前缀 | 清除时机 | 说明 |
+|------|----------|------|
+| `GLOBAL_` | `RESETGLOBAL` | 跨存档共享，类似 `GLOBAL` 变量 |
+| `SAVE_` | `RESETDATA` | 跟随普通存档 |
+| `STATIC_` | `RESETGLOBAL` | 不受 `RESETDATA` 影响 |
+
+- 仅在「セーブデータをバイナリ形式で保存する」为 `YES` 时生效
+- 可分散在多个文件（`VarExt1.csv`、`VarExt2.csv`…），可多行
+- ID 不存在于内存中时不会写入存档
+- 旧存档中保存了 CSV 中未列出的 ID 时，加载时会丢弃该部分数据

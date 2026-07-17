@@ -26,103 +26,19 @@ CSV 加载完成后调用。`BEGIN TITLE` 也会触发。
 
 ### 书写格式
 
-**函数定义侧**：
-```
-@函数名, 参数1, 参数2, ...
-    参数用 ARG:0,1,2...（数值）或 ARGS:0,1,2...（字符串）
-    函数中 #DIM/#DIMS 定义的私有变量也可作参数
-```
+> 函数参数和调用的完整说明见 `references/core-concepts/user-defined-functions.md`。此处仅列出预处理器相关的要点。
 
-**调用侧**：
-```
-CALL 函数名, 参数1, 参数2, ...
-```
-
-### 参数类型
-
-- 数值：数值表达式或字符串表达式
-- 字符串字面量：`"～～"` 括起来
-- 格式化字符串字面量：`@"～～"` 
-
-```
-; 定义
-@FOOBAR, ARG:0, ARGS:0
-    ; 处理
-
-; 调用
-CALL FOOBAR, X, STR:0                   ; 变量指定
-CALL FOOBAR, 123, "示例"               ; 常量指定
-CALL FOOBAR, 123, @"[{COUNT}] 示例"    ; 格式化字符串
-CALL FOOBAR, X + 10, "示例" * 10       ; 表达式指定
-CALL FOOBAR                              ; 全部省略
-CALL FOOBAR, , "示例"                   ; 省略第1参数
-CALL FOOBAR, 123                         ; 省略第2参数
-```
-
-### 参数省略
-
-省略参数时：数值型默认为 `0`，字符串型默认为空字符串（无初始值时）。
-
-### 参数初始值
-
-```
-@函数名, 参数1 = 初始值1, 参数2 = 初始值2, ...
-```
-
-```
-@FOOBAR, ARG:0 = 10, ARGS:0 = "默认值"
-    ; ARG:0 默认 10，ARGS:0 默认 "默认值"
-```
-
-### 参数类型检查
-
-v1.808 起，调用侧和定义侧类型不一致时报错。
-要传入数值给字符串型参数需用 `TOSTR` 转换或修改配置。
-
-### 推荐与非推荐写法
-
-**推荐**：
-```
-@FOOBAR, ARG:0, ARG:1
-```
-
-**非推荐**（可读性差）：
-```
-@FOOBAR, X, Y            ; 直接用变量作参数
-@FOOBAR, ARG:X, ARG:Y    ; 可变参数
-@FOOBAR, ARG:0, ARG:(ARG:0) ; 嵌套
-```
+- 参数用 `ARG:0,1,2...`（数值）或 `ARGS:0,1,2...`（字符串）
+- 调用侧类型与定义侧不一致时报错
+- 推荐用 `ARG`/`ARGS` 作形参名（而非直接用全局变量）
 
 ## CALL 系命令一览
 
-| 命令 | 说明 |
-|------|------|
-| `CALL` | 调用函数，执行后返回 |
-| `JUMP` | 跳转到函数（不返回） |
-| `CALLF` | 调用式中函数 |
-| `CALLFORMF` | 调用式中函数（格式化） |
-| `TRYCALL` / `TRYCALLF` / `TRYCALLFORMF` | 带异常处理的调用 |
-| `CALLTRAIN` | 调教自动执行 |
-| `CALLEVENT` | 调用事件函数 |
-| `CALLSHARP` | 通过字符串调用函数 |
+详见 `references/commands/control-flow.md` 和 `references/core-concepts/user-defined-functions.md`。
 
-### 参数引用传递（v1.810+）
+### 参数引用传递
 
-使用 `#DIM REF` 声明引用类型变量作为参数，可以在函数内部修改调用侧传入的变量值：
-
-```
-@TEST(HOGE)
-#DIM REF HOGE
-    HOGE = 100
-    RETURN
-
-; 调用
-A = 0
-CALL TEST(A)
-; 调用后 A = 100
-```
-
-引用参数的声明必须写在函数定义的紧邻下一行。
+见 `references/core-concepts/user-defined-functions.md`。
 
 ## 函数属性
 

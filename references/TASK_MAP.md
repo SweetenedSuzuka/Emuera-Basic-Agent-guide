@@ -124,6 +124,10 @@
 
 1. `references/glossary.md` — ERB/Emuera 术语表
 
+## 我想设置工具提示（悬停文字）
+
+1. `references/commands/tooltip.md` — TOOLTIP_SETDELAY/TOOLTIP_CUSTOM 等
+
 ## 我想定义自己的函数
 
 1. `references/core-concepts/user-defined-functions.md` — 一般函数与式中函数

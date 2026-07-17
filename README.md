@@ -2,7 +2,7 @@
 
 给 Gemini CLI、Claude Code、Codex 等 AI 编程助手使用的 ERA Basic（ERB）离线参考技能库。
 
-![docs](https://img.shields.io/badge/docs-30%20markdown%20files-7c3aed?style=flat-square)
+![docs](https://img.shields.io/badge/收录-37个Markdown文档-7c3aed?style=flat-square)
 
 > 面向 Emuera（EmueraEM+EE）的本地知识源，覆盖 ERB 语法、变量体系、180+ 命令 API、系统流程、CSV/DataTable/MAP/XML 数据处理、图形与音频。
 
@@ -61,7 +61,7 @@ AI 编程助手在 ERA Basic 开发中经常碰到的几类问题：
 | [`print-system.md`](./references/commands/print-system.md) | PRINT 系命令大全 |
 | [`display-font.md`](./references/commands/display-font.md) | 颜色、字体、对齐、进度条、跳过控制 |
 | [`string-operations.md`](./references/commands/string-operations.md) | 字符串操作：大小写、全半角、子串、查找、分割、匹配 |
-| [`control-flow.md`](./references/commands/control-flow.md) | 流程控制：IF/SIF/FOR/WHILE/REPEAT/SELECTCASE/GOTO/CALL/TRY |
+| [`control-flow.md`](./references/commands/control-flow.md) | 流程控制：IF/SIF/FOR/WHILE/REPEAT/SELECTCASE/GOTO/CALL/TRY/TRYC/TRYLIST |
 | [`input.md`](./references/commands/input.md) | 输入命令：INPUT/INPUTS/ONEINPUT/TINPUT/INPUTMOUSEKEY |
 | [`system.md`](./references/commands/system.md) | 系统命令：BEGIN/QUIT/存档/时间/内存/配置 |
 | [`character.md`](./references/commands/character.md) | 角色操作：ADDCHARA/DELCHARA/FINDCHARA/PICKUPCHARA/SORTCHARA |
@@ -72,7 +72,8 @@ AI 编程助手在 ERA Basic 开发中经常碰到的几类问题：
 | [`graphics.md`](./references/commands/graphics.md) | 图形：画布、精灵、动画、按钮背景 |
 | [`sound.md`](./references/commands/sound.md) | 音频：音效/BGM 播放与音量控制 |
 | [`html-print.md`](./references/commands/html-print.md) | HTML_PRINT 标签系统：p/button/font/img/div 等标签 |
-| [`math-etc.md`](./references/commands/math-etc.md) | 数学、数组操作、变量参照、文件检查 |
+| [`math-etc.md`](./references/commands/math-etc.md) | 数学、数组操作、变量参照、文件检查、SWAP/TIMES |
+| [`tooltip.md`](./references/commands/tooltip.md) | TOOLTIP 工具提示：延迟/时长/颜色/字体/格式 |
 
 ### 专题文档
 

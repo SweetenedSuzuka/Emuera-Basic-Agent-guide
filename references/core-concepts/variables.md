@@ -201,6 +201,8 @@ A:1 = A:0 + 30
 | `GLOBALNAME` | global.csv |
 | `GLOBALSNAME` | globals.csv |
 
+> `DAY.csv`、`TIME.csv`、`MONEY.csv` 可以像其他 CSV 变量一样创建，为这三个变量的数组元素命名。定义后将产生只读的 `DAYNAME`、`TIMENAME`、`MONEYNAME` 引用变量，行为与其他 `*NAME` 变量一致。
+
 ### CSV 文件名到引用变量的完整对照表
 
 | CSV 文件名 | 引用变量 | 说明 |
@@ -279,36 +281,30 @@ A:1 = A:0 + 30
 
 ## 用户定义变量
 
-### `#DIM`（整数类型）/ `#DIMS`（字符串类型）
+> 完整说明见 `references/core-concepts/user-defined-variables.md`。此处仅作概要。
 
 ```
-; 一维数组
-#DIM MY_INT, 100
-#DIMS MY_STR, 50
+; 函数内私有变量
+#DIM MY_INT, 100        ; 整数一维数组
+#DIMS MY_STR, 50        ; 字符串一维数组
+```
 
-; 二维数组
-#DIM MY_2D, 10, 20
+- 可以在 `#DIM(S)` 后面加 `DYNAMIC` 表明是动态变量、加 `CONST` 表明是常量、加 `REF` 表明是引用类型变量，不加就是静态变量。
+- 一般建议只用静态变量。
 
-; 三维数组
-#DIM MY_3D, 5, 10, 15
-
-; 带初始值
-#DIM CONST HOGE = 1,2,3
-#DIMS CONST SHOGE = "A", "B", "C"
-
-; 动态变量
-#DIM DYNAMIC DYN_VAR, 100
-
-; 引用类型变量
-#DIM REF REF_VAR, 0
-
-; ERH 中的扩展
-#DIM SAVEDATA MY_SAVED, 100       ; 可保存
-#DIM CHARADATA C_VAR, 50          ; 角色变量
-#DIM GLOBAL G_VAR, 100            ; 全局变量
-#DIM GLOBAL SAVEDATA GS_INT, 100  ; 可保存全局
+```
+; ERH 中的全局变量
+#DIM SAVEDATA MY_SAVED, 100        ; 可保存
+#DIM CHARADATA C_VAR, 50           ; 角色变量
+#DIM GLOBAL G_VAR, 100             ; 跨存档全局
+#DIM GLOBAL SAVEDATA GS_INT, 100   ; 可保存全局
 #DIM CHARADATA SAVEDATA CS_VAR, 50 ; 可保存角色变量
 ```
+
+- `GLOBAL` 跨存档保存，这种变量不会在存档的时候保存，具体用法需要参照完整说明。
+- `CHARADATA` 为角色变量，每个角色各有一个。
+- `SAVEDATA` 为可保存变量，在游戏存档时会自动保存。
+- 三者可以按需组合，什么都不加就是普通全局变量。
 
 ## 注意事项
 

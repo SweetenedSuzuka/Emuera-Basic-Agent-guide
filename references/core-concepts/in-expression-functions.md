@@ -244,6 +244,46 @@ IF ABS(A - B) > STRLENS(STR:0)
 | `GETMETH` | `int GETMETH(str functionName(, int defaultValue, any argument...))` | 以字符串调用数值型式中函数；defaultValue 为函数不存在时的默认返回值 |
 | `GETMETHS` | `str GETMETHS(str functionName(, str defaultValue, any argument...))` | 以字符串调用字符串型式中函数；defaultValue 为函数不存在时的默认返回值 |
 
+## 动态函数调用（GETMETH / GETMETHS）
+
+`GETMETH` 和 `GETMETHS` 允许通过**字符串名称**在运行时动态调用自定义式中函数。这是实现回调、插件系统等高级模式的关键机制。
+
+```
+; 定义式中函数
+@计算奖励(基础值, 倍率)
+#FUNCTION
+    RETURNF 基础值 * 倍率 / 100
+
+@获取称号(等级)
+#FUNCTIONS
+    SELECTCASE 等级
+    CASE 0
+        RETURNF "新手"
+    CASE 1
+        RETURNF "高手"
+    CASEELSE
+        RETURNF "大师"
+    ENDSELECT
+
+; 动态调用
+VARS 函数名 = "计算奖励"
+A = GETMETH(函数名, 0, 1000, 150)
+; A = 1000 * 150 / 100 = 1500
+
+VARS 函数名 = "获取称号"
+STR:0 = GETMETHS(函数名, "未知", 2)
+; STR:0 = "大师"
+
+; 函数不存在时使用默认值（不会报错）
+A = GETMETH("不存在的函数", -1, 任意参数)
+; A = -1（返回默认值）
+```
+
+- 第 1 参数是函数名字符串
+- 第 2 参数是函数不存在时的默认返回值
+- 第 3 参数起是传递给目标函数的实参
+- 总参数数量 = 目标函数参数数 + 2（函数名 + 默认值）
+
 ## 短路求值与式中函数
 
 逻辑运算符 `&&` 和 `||` 采用短路求值（短絡評価）：

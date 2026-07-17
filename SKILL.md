@@ -30,7 +30,9 @@ metadata:
    - **资源与图形**（resources/ 文件夹、精灵、动画精灵、图像格式）：打开 `references/game-config/resources.md`。
    - **HTML_PRINT 标签**（div、clearbutton、px 单位等）：打开 `references/commands/html-print.md`。
    - **INPUT 命令**（鼠标点击、右击跳过等参数）：打开 `references/commands/input.md`。
+   - **字符串操作**（大小写、全半角、查找、分割、正则替换 REPLACE、UNICODE 等）：打开 `references/commands/string-operations.md`。
    - **变量与存档**（ERD 文件、XML/MAP/DT 存档）：打开 `references/core-concepts/variables.md` 和相关命令文档。
+   - **工具栏提示**（悬停文字颜色、字体、延迟等）：打开 `references/commands/tooltip.md`。
    - **使用方法与宏**（键盘宏、菜单、快捷键）：打开 `references/getting-started/usage.md`。
    - **术语定义**（函数/命令/事件函数/预处理器等概念区分）：打开 `references/glossary.md`。
    - **用户定义函数**（@函数、参数机制、式中函数 #FUNCTION/#FUNCTIONS）：打开 `references/core-concepts/user-defined-functions.md`。
@@ -213,6 +215,8 @@ CALL FUNC_NAME, 123, "字符串"
 
 `#DIM` 定义整数变量，`#DIMS` 定义字符串变量。可加 `CONST`（常量）、`DYNAMIC`（动态）、`REF`（引用）修饰。只能写在 `@函数名` 声明下一行（局部）或 `.ERH` 中（全局）。
 
+也可在函数体内任意位置用 `VARI`（整数型）和 `VARS`（字符串型）动态定义局部变量，无需前置声明。
+
 ```
 ; 函数内私有变量
 @FUNC_NAME
@@ -221,6 +225,11 @@ CALL FUNC_NAME, 123, "字符串"
 #DIM CONST HOGE = 1,2,3 ; 常量（需初始化，定义后不可修改）
 #DIM DYNAMIC DYN_VAR    ; 动态变量（函数调用时分配，结束时释放）
 #DIM REF REF_VAR        ; 引用类型变量（指向另一个变量）
+
+; 函数体内动态定义
+VARI 答案 = 42           ; 整数变量
+VARS 问题 = "字符串"     ; 字符串变量
+VARI 数列, 10            ; 整数数组（10 元素）
 
 ; ERH 中的全局变量
 #DIM MY_GLOBAL_INT, 100
@@ -289,6 +298,9 @@ IF STRLENS(STR:0) > 10
 | `CALLF` / `CALLFORMF` | 式中函数调用 |
 | `CALLTRAIN` / `STOPCALLTRAIN` | 调教自动执行 |
 | `TRY` / `CATCH` / `ENDCATCH` / `THROW` | 异常处理 |
+| `TRYCCALL` / `TRYCJUMP` / `TRYCGOTO` | 函数存在性判断（不存在→CATCH） |
+| `TRYCALLFORM` / `TRYJUMPFORM` / `TRYGOTOFORM` | 格式化字符串容错调用（静默跳过） |
+| `TRYCALLLIST` / `FUNC` / `ENDFUNC` | 候选函数列表 |
 | `BEGIN` | 切换到游戏阶段 |
 
 ### 输入
@@ -327,6 +339,11 @@ IF STRLENS(STR:0) > 10
 | `SAVECHARA` / `LOADCHARA` | 角色数据 |
 | `SAVETEXT` / `LOADTEXT` | 文本存取 |
 | `CHKDATA` / `DELDATA` | 检查/删除存档 |
+| `ISACTIVE` | 检查窗口是否激活 |
+| `VARSET` / `VARSETEX` / `CVARSET` | 批量变量填充 |
+| `GETVAR` / `GETVARS` / `SETVAR` | 通过字符串名读写变量 |
+| `SWAP` | 交换两变量值 |
+| `TIMES` | 整数乘以小数 |
 
 ### 图形
 
@@ -336,7 +353,7 @@ IF STRLENS(STR:0) > 10
 | `GDRAWG` / `GDRAWGWITHMASK` / `GDRAWGWITHROTATE` | 画布绘制 |
 | `GDRAWTEXT` / `GDRAWSPRITE` / `GDRAWLINE` | 文本/精灵/线条绘制 |
 | `GFILLRECTANGLE` | 矩形填充 |
-| `GSETCOLOR` / `GSETBRUSH` / `GSETPEN` / `GSETFONT` | 图形属性设置 |
+| `GSETCOLOR` / `GSETBRUSH` / `GSETPEN` / `GSETFONT` / `GDASHSTYLE` | 图形属性设置 |
 | `GGETCOLOR` / `GGETBRUSH` / `GGETFONT` / `GGETPEN` | 图形属性获取 |
 | `GSAVELOAD` | 画布保存/加载 |
 | `GCLEAR` | 清空画布 |
@@ -352,6 +369,16 @@ IF STRLENS(STR:0) > 10
 | `PLAYBGM` / `STOPBGM` | BGM 播放/停止 |
 | `SETSOUNDVOLUME` / `SETBGMVOLUME` | 音量设置 |
 | `EXISTSOUND` | 音效文件存在检查 |
+
+### TOOLTIP（工具提示）
+
+| 命令 | 说明 |
+|------|------|
+| `TOOLTIP_SETDELAY` / `TOOLTIP_SETDURATION` | 提示延迟/显示时长 |
+| `TOOLTIP_CUSTOM` | 启用/关闭扩展功能 |
+| `TOOLTIP_SETCOLOR` | 提示前景色/背景色 |
+| `TOOLTIP_SETFONT` / `TOOLTIP_SETFONTSIZE` | 提示字体/字号 |
+| `TOOLTIP_FORMAT` | 提示文字对齐 |
 
 ### DataTable（数据库）
 
@@ -397,6 +424,10 @@ IF STRLENS(STR:0) > 10
 | `SPLIT` | `int SPLIT(str, str, ref)` | 字符串分割 |
 | `TOSTR` | `str TOSTR(int)` | 数值转字符串 |
 | `TOINT` | `int TOINT(str)` | 字符串转数值 |
+| `REPLACE` | `str REPLACE(str, str, str)` | 正则替换 |
+| `STRJOIN` | `str STRJOIN(arr, str)` | 字符串数组连接 |
+| `ENCODETOUNI` | `int ENCODETOUNI(str)` | 字符→Unicode 码点 |
+| `GETMETH` / `GETMETHS` | `int/str GETMETH(str, ...)` | 动态调用式中函数 |
 | `EXISTFILE` | `int EXISTFILE(str)` | 文件存在检查 |
 | `ENUMFILES` | `int ENUMFILES(str)` | 文件枚举 |
 | `GETCONFIG` / `GETCONFIGS` | `int/str GETCONFIG(str)` | 获取配置值 |

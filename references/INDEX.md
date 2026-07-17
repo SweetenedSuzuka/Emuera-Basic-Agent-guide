@@ -36,7 +36,8 @@
 | `references/commands/graphics.md` | 图形命令：GCREATE/GDRAWG/GDRAWTEXT/SPRITECREATE/CBGSETG/SETBGIMAGE 等 |
 | `references/commands/sound.md` | 音频命令：PLAYSOUND/STOPSOUND/PLAYBGM/STOPBGM/SETSOUNDVOLUME 等 |
 | `references/commands/html-print.md` | HTML_PRINT 标签系统：p/nobr/button/font/img/div 等标签、HTML_ESCAPE 等函数 |
-| `references/commands/math-etc.md` | 数学/数组/变量参照：RAND/ABS/MAX/MIN/ARRAYSORT/SUMARRAY/VARSIZE/EXISTFILE 等 |
+| `references/commands/tooltip.md` | TOOLTIP 命令：提示文字延迟/时长/颜色/字体/格式等 |
+| `references/commands/math-etc.md` | 数学/数组/变量参照：RAND/ABS/MAX/MIN/ARRAYSORT/SUMARRAY/VARSIZE/EXISTFILE/SWAP/TIMES 等 |
 
 ## 系统流程 (system-flow/)
 

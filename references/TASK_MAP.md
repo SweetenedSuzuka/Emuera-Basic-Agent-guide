@@ -85,9 +85,9 @@
 1. `references/core-concepts/in-expression-functions.md` — 式中函数一览
 2. `references/core-concepts/preprocessor.md` — #FUNCTION 定义
 
-## 我想了解 Emuera 与 eramaker 的差异
+## 我想了解最新版与旧版（如 Emuera（无后缀）、eramaker 等）的差异
 
-1. `references/eramaker-diff/differences.md` — 差异完整列表
+1. `references/version-diff/differences.md` — 差异完整列表
 
 ## 我想配置游戏
 

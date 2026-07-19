@@ -81,7 +81,7 @@ AI 编程助手在 ERA Basic 开发中经常碰到的几类问题：
 | --- | --- |
 | [`system-flow.md`](./references/system-flow/system-flow.md) | 游戏系统流程：TITLE→FIRST→SHOP→TRAIN 各阶段详解 |
 | [`config.md`](./references/game-config/config.md) | 游戏配置：emuera.config、_replace.csv、VariableSize.csv |
-| [`differences.md`](./references/eramaker-diff/differences.md) | Emuera 与 eramaker 的所有差异 |
+| [`differences.md`](./references/version-diff/differences.md) | Emuera 与 eramaker 的所有差异 |
 | [`csv-format.md`](./references/csv-reference/csv-format.md) | CSV 文件格式：chara*.csv、item.csv、str.csv 等完整说明 |
 | [`erb-format.md`](./references/csv-reference/erb-format.md) | ERB/ERH 文件格式规范与最佳实践 |
 | [`debug.md`](./references/reference/debug.md) | 调试功能完整参考（**不推荐在开发中使用**） |

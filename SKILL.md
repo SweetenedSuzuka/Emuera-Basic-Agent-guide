@@ -36,7 +36,7 @@ metadata:
    - **使用方法与宏**（键盘宏、菜单、快捷键）：打开 `references/getting-started/usage.md`。
    - **术语定义**（函数/命令/事件函数/预处理器等概念区分）：打开 `references/glossary.md`。
    - **用户定义函数**（@函数、参数机制、式中函数 #FUNCTION/#FUNCTIONS）：打开 `references/core-concepts/user-defined-functions.md`。
-   - **如果必须兼容旧版 eramaker**：打开 `references/eramaker-diff/differences.md`（仅当用户明确要求兼容 eramaker 时才需要）。
+   - **如果必须兼容旧版：打开 `references/version-diff/differences.md`（仅当用户明确要求兼容旧版时才需要）。
    - **不确定领域**：先查 `references/TASK_MAP.md`，再通过 `references/INDEX.md` 精确定位。
 
 2. **选择最小索引**
@@ -439,7 +439,7 @@ IF STRLENS(STR:0) > 10
 - **默认值以文档为准**：API 签名、参数、返回值以 `references/` 内文本为准，不凭经验补全。
 - **ERB 风格优先**：示例代码使用 `PRINT` 系、`;` 注释、`@` 函数等 ERA Basic 风格，不要带入其他语言的语法。
 - **⚠️ ERA 没有类、模块、文件作用域等概念**：所有函数都是平级的全局函数，不同文件内也不得存在同名函数。同时只存在两种变量，即 ERH 中的全局变量、`@函数名` 的下一行一行一个的函数内局部变量。**禁止在函数外部写变量**，它不会像高级语言一样变成文件类的局部变量，而是在加载时变成一个孤立的行引发报错。（详见`references\csv-reference\erb-format.md`）
-- **默认写 Emuera 代码**：直接使用 Emuera 的全部特性（`;!;` 注释、FORM 语法、式中函数、DataTable/MAP/XML 等）。只有在用户明确要求兼容旧版 eramaker 时才查阅 `references/eramaker-diff/differences.md`。
+- **默认写最新版代码**：当前最新版为 Emuera.NET 1824+v24+EMv18+EEv55，允许使用本 Skill 所记录的全部特性，无特殊情况都可以按照描述使用。只有在用户明确要求兼容旧版时才查阅 `references/version-diff/differences.md`。
 - **CSV 列名以项目为准**：CSV 文件（如 talent.csv、abl.csv）中的列名由各游戏项目自行定义，本文档中出现的列名仅为示例。编写代码时应查阅目标项目的实际 CSV 文件。
 - **使用统一术语**：回答中使用「数组」「变量」「赋值」「字符串」「参数」等中文术语，与本文档保持一致。
 

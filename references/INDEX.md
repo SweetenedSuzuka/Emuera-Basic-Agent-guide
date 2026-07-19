@@ -52,11 +52,11 @@
 | `references/game-config/config.md` | emuera.config 配置项、_replace.csv 可替换项目、_Rename.csv |
 | `references/game-config/resources.md` | 资源目录结构：resources/ 文件夹、资源指定 CSV 格式、精灵与动画精灵、图像格式、内存注意事项 |
 
-## 与 eramaker 差异 (eramaker-diff/)
+## 与旧版差异 (version-diff/)
 
 | 文件 | 说明 |
 |------|------|
-| `references/eramaker-diff/differences.md` | Emuera 与 eramaker 的所有差异：修复的 Bug、新增功能、兼容性注意事项 |
+| `references/version-diff/differences.md` | 目前版本（Emuera.NET 1824+v24+EMv18+EEv55）与旧版（Emuera（无后缀）、eramaker等）的所有差异：修复的 Bug、新增功能、兼容性注意事项 |
 
 ## CSV 参考 (csv-reference/)
 

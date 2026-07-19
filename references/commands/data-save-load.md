@@ -97,7 +97,7 @@ LOADTEXT fileNo(, force_savdir, force_UTF8)
 - 式中函数形式：直接返回读取结果
 - 失败时 `RESULTS:0` 为空字符串
 
-> EM+EE 中，若第1参数为字符串，则作为文件路径直接读写（需在 emuera.config 中配置允许的扩展名）。
+> 若第1参数为字符串，则作为文件路径直接读写（需在 emuera.config 中配置允许的扩展名）。
 
 ## CHKDATA / DELDATA
 

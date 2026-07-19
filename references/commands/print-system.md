@@ -35,7 +35,7 @@ K 和 D 不可同时指定。
 | （无） | 纯打印，不换行不 WAIT |
 | `L` | 打印后换行 |
 | `W` | 打印后换行并 WAIT |
-| `N` | 打印后不换行但 WAIT（Emuera.NET 专用，不能与 K/D 同时使用） |
+| `N` | 打印后不换行但 WAIT（不能与 K/D 同时使用） |
 
 ### 组合示例
 
@@ -234,7 +234,7 @@ PRINT_RECT 0, 0, 300 px, 200 px
 PRINT_SPACE 200 px
 ```
 
-### PRINTN 系（Emuera.NET 专用）
+### PRINTN 系
 
 ```
 PRINTN(...)

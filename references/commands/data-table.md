@@ -1,6 +1,6 @@
 # DataTable 命令
 
-DataTable 是 Emuera EM 版新增的内存数据库功能。
+DataTable 是内存数据库相关的功能。
 
 ## 基本管理
 

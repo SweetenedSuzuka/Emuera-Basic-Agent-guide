@@ -153,7 +153,7 @@ ENDSKIPDRW    ; 结束跳过绘制区域
 ### SETBARSTYLE / SETBARTEXT
 
 ```
-SETBARSTYLE 样式值       ; 设置进度条样式（具体值与 Emuera 版本相关）
+SETBARSTYLE 样式值       ; 设置进度条样式
 SETBARTEXT 文字           ; 设置进度条文字格式
 ```
 

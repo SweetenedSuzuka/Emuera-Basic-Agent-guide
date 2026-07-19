@@ -1,6 +1,6 @@
 # XML 命令
 
-XML 命令群是 Emuera EM 版新增的 XML 处理功能，基于 .NET 标准 XPath 解析。
+XML 命令群提供基于 .NET 标准 XPath 的 XML 处理功能。
 
 ### XPath 支持
 

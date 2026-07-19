@@ -144,7 +144,7 @@ SPRITECREATE "player_walk", 0
 
 ## font 文件夹
 
-EE+EM 支持从 `font` 文件夹动态加载字体文件（`.ttf`、`.otf`）。
+从 `font` 文件夹动态加载字体文件（`.ttf`、`.otf`）。
 
 - 将字体文件放在 `font` 文件夹内，引擎启动时自动加载
 - 加载后可在 `SETFONT`、`GSETFONT` 等命令中使用这些字体

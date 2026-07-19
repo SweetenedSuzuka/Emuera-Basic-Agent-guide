@@ -162,19 +162,27 @@ SETBARTEXT 文字           ; 设置进度条文字格式
 ### SKIPDISP / ISSKIP / MOUSESKIP / MESSKIP
 
 ```
-SKIPDISP 0   ; 终止跳过
-SKIPDISP 1   ; 开始跳过
+SKIPDISP 0   ; 终止跳过（恢复显示）
+SKIPDISP 1   ; 开始跳过（PRINT 输出不渲染到画面）
 ISSKIP        ; 返回当前是否跳过中（int）
-MOUSESKIP     ; 鼠标跳过状态
-MESSKIP       ; 消息跳过状态
+MOUSESKIP     ; 鼠标跳过状态，不建议使用，请改用 MESSKIP
+MESSKIP       ; WAIT 跳过状态（右击/Esc 跳过中返回 1）
 ```
+
+> **重要**：`SKIPDISP 1` 期间如果执行到 `INPUT`/`INPUTS`，**程序会报错终止**——因为用户看不到输入提示，且跳过输入可能导致无限循环。需要使用 `NOSKIP`/`ENDNOSKIP` 保护必须显示的 `INPUT` 区间。
+
+`SKIPDISP` 的一种用法：调用"口上"函数时，无论玩家是否选择了隐藏文字，函数内部的逻辑（如变量修改）都能正常执行。方法是在调用前设置 `SKIPDISP 1`，此时 PRINT 被跳过但其他代码照常运行，回传后恢复。
+
+`ISSKIP`、`MOUSESKIP`、`MESSKIP` 可以在表达式中作为式中函数使用。
 
 ### NOSKIP / ENDNOSKIP
 
 ```
-NOSKIP        ; 标记不可跳过区间开始
+NOSKIP        ; 标记不可跳过区间开始（SKIPDISP 1 状态下此区间内仍正常显示）
 ENDNOSKIP     ; 标记不可跳过区间结束
 ```
+
+用于 `SKIPDISP 1` 状态下保护必须显示的区间，如 `INPUT` 交互。该区间不受 `SKIPDISP` 影响，始终正常渲染。
 
 ## BITMAP 缓存
 

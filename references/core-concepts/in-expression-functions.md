@@ -115,6 +115,7 @@ IF ABS(A - B) > STRLENS(STR:0)
 | `SPLIT` | `int SPLIT(str s, str separator, strArray result)` | 以 separator 分割 s，结果写入字符串数组 result，返回分割数 |
 | `STRJOIN` | `str STRJOIN(strArray array(, str separator, int start, int count))` | 将字符串数组各元素用 separator 连接；默认 separator 为逗号 |
 | `REPLACE` | `str REPLACE(str s, str searchWord, str replaceWord)` | 将 s 中匹配 searchWord（正则）的部分替换为 replaceWord |
+|  | `str REPLACE(str s, str searchWord, strArray array, int mode)` | mode 非 0 时，用 array 各元素顺序替换 searchWord 匹配到的各部分
 | `ESCAPE` | `str ESCAPE(str s)` | 转义 s 中的正则表达式元字符 |
 | `UNICODE` | `str UNICODE(int charCode)` | 返回 Unicode 码点 charCode 对应的字符 |
 | `ENCODETOUNI` | `int ENCODETOUNI(str s(, int position))` | 返回 s 中 position 处字符的 Unicode 码点；position 默认 0 |

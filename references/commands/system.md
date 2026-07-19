@@ -188,7 +188,23 @@ SETCONFIG 配置名, 值  ; 设置配置值
 ### OUTPUTLOG
 
 ```
-OUTPUTLOG 字符串      ; 输出到日志文件
+OUTPUTLOG 字符串                    ; 输出到默认日志文件
+OUTPUTLOG 文件路径, 字符串          ; 输出到指定文件
+```
+
+输出日志到文件。支持指定子目录（但不能指定上级目录 `..`）。
+
+- 无文件名参数时，输出到默认日志
+- 带文件名参数时（第一参数为字符串），输出到指定路径
+- 允许的扩展名由 `emuera.config` 中「LOADTEXTとSAVETEXTで使える拡張子」配置项决定（默认仅 `txt`）
+- 日志编码为 Unicode
+
+```
+; 输出到默认日志
+OUTPUTLOG "处理完成"
+
+; 输出到指定文件
+OUTPUTLOG "logs/debug.txt", "调试信息：{变量值}"
 ```
 
 ## 日志

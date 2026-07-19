@@ -91,10 +91,12 @@ Emuera 支持宏功能（`\e`、`\n`、`(～～)*n`）。
 
 ### 注释
 
-Emuera 新增：
 - 行尾注释（`;` 后的内容）
-- `;!;` 开头的行（Emuera 中有效，eramaker 中注释）
+- `;^;` 开头的行（Emuera EM+EE 中有效，Emuera 和 eramaker 中被当作注释）
+- `;!;` 开头的行（Emuera 中有效，eramaker 中被当作注释）
 - `;#;` 开头的行（调试模式专用，详见 `references/reference/debug.md`）
+
+> **不建议**使用除了 `;` 外的注释前缀，它们在开发中大多没有意义，现在的游戏分发通常直接附带脚本解释器，无需考虑兼容其它解释器的问题。
 
 #### 与 `[SKIPSTART]` 和 `[SKIPEND]` 的联用
 

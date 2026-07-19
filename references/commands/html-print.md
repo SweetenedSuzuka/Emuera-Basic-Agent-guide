@@ -195,22 +195,27 @@ str HTML_TOPLAINTEXT(字符串)
 | `HTML_SUBSTRING` | 对 HTML 字符串按纯文本位置取子串 |
 | `HTML_TAGSPLIT` | 将 HTML 字符串按标签和纯文本分段拆分 |
 
-## HTML_PRINT_ISLAND — 孤岛标记注册
+## HTML_PRINT_ISLAND — 孤岛输出
 
 ```
-HTML_PRINT_ISLAND 标记名, HTML文本
+HTML_PRINT_ISLAND HTML文本
+HTML_PRINT_ISLAND_CLEAR
 ```
 
-将 HTML 文本注册为"孤岛标记"（island tag），后续可在 `HTML_PRINT` 中通过 `<island name='标记名' />` 引用。
+`HTML_PRINT_ISLAND` 是 `HTML_PRINT` 的变体——同样使用 HTML 标签语法，但渲染结果**不绑定到任何行**。
 
-- 主要用于将复杂的 HTML 片段预先定义好，在需要的地方简约引用。
+- 与 `HTML_PRINT` 不同的是，`HTML_PRINT_ISLAND` 输出的内容不会随文本滚动而消失，始终固定显示在画面上。
+- 适合制作始终可见的 UI 元素（如状态栏、浮动按钮等）。
+- `HTML_PRINT_ISLAND_CLEAR` 清除所有孤岛输出。
 
 ```
-; 定义孤岛标记
-HTML_PRINT_ISLAND myHeader, "<font color='red'><b>标题文字</b></font>"
+; 渲染一个固定在画面上的状态栏
+HTML_PRINT_ISLAND "<div display='absolute' ypos='0' xpos='0' width='100%' height='30px' color='#202020'>状态：正常</div>"
 
-; 在 HTML_PRINT 中引用
-HTML_PRINT "<island name='myHeader' />欢迎使用本程序。"
+; … 后续大量文字输出，滚动 …
+
+; 清除孤岛
+HTML_PRINT_ISLAND_CLEAR
 ```
 
 ## 注意事项

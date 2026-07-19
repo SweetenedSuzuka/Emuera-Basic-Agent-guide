@@ -204,11 +204,3 @@ UPCHECK
 ```
 
 检查 UP（上升量）值。
-
-### GROUPCHECK
-
-```
-GROUPCHECK
-```
-
-检查组群。

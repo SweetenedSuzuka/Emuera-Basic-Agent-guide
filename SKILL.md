@@ -188,6 +188,7 @@ CALL function_name, arg0, arg1
 JUMP function_name
 RETURN
 ```
+;函数名也可以用`function_name(arg0, arg1)`的形式，并且建议用括号式。
 
 ### 函数定义
 

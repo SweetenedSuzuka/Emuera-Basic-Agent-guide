@@ -1,122 +1,131 @@
-# 🎮 ERA Basic 开发者技能包
+# ERA Basic 开发者技能包
 
-给 Gemini CLI、Claude Code、Codex 等 AI 编程助手使用的 ERA Basic（ERB）离线参考技能库。
+为 Gemini CLI、Claude Code、Codex 等 AI 编程助手准备的 ERA Basic（ERB）离线知识库。仓库本身就是可安装的 Agent Skill：根目录包含 `SKILL.md`，完整参考文档位于 `references/`。
 
-![docs](https://img.shields.io/badge/收录-37个Markdown文档-7c3aed?style=flat-square)
+![References](https://img.shields.io/badge/references-37-7c3aed?style=flat-square)
 
-> 面向 Emuera（EmueraEM+EE）的本地知识源，覆盖 ERB 语法、变量体系、180+ 命令 API、系统流程、CSV/DataTable/MAP/XML 数据处理、图形与音频。
+> 面向 Emuera.NET，覆盖 ERB 语法、变量体系、命令与函数 API、系统流程、CSV/ERH、DataTable/MAP/XML、图形、音频、资源、配置与调试。
 
-## 🎯 解决的问题
+## 简介
 
-AI 编程助手在 ERA Basic 开发中经常碰到的几类问题：
+技能包收录 Emuera 的 ERB 语法、变量、命令和系统机制，供 Gemini CLI、Claude Code、Codex 等 AI 编程助手进行快速查询。
 
-- 不确定 ERB 的确切语法规则——ERB 是一套不同于主流语言的领域脚本，模型没有可靠的训练数据
-- 不知道某个命令是否存在、参数是什么、返回值怎么取
-- 变量体系庞大（100+ 内置变量，7 种类别），记忆负担重且容易混淆
-- 游戏系统流程（TITLE→FIRST→SHOP→TRAIN）和事件函数（@EVENTFIRST、@SHOW_USERCOM 等）难以理解
-- Emuera 与旧版 eramaker 的差异不清楚，不知道哪些功能可以直接用
+## 核心特性
 
-本仓库把这些不确定性变成**可定位、可查阅、可验证的本地文件查询**。
+- **离线可检索**：资料全部保存在仓库内，不依赖联网检索或模型记忆。
+- **读取思路**：设计上是假设智能体先读取 `SKILL.md`，随后根据具体要求在 `TASK_MAP.md` 和 `INDEX.md` 确认需要的内容，再找到具体的相关内容描述。
+- **精确到文档**：API 签名、参数和限制以 `references/` 中的参考文档为准。
 
-## Before / After
+## 仓库结构
 
-**没有 skill**：模型凭记忆猜 ERB 命令名、参数格式和语法，输出看起来合理但经常是编造的——参数数量不对、API 签名错误、功能描述完全相反。
+```text
+.
+├── SKILL.md                 # Agent Skill 入口、路由策略和速查表
+├── README.md                # 项目说明与文档地图
+├── LICENSE                  # GPL-2.0
+└── references/
+    ├── TASK_MAP.md          # 任务导航
+    ├── INDEX.md             # 全库文档索引
+    ├── core-concepts/       # 语法、变量、表达式、函数、预处理器
+    ├── commands/            # 命令与函数 API 分类参考
+    ├── system-flow/         # 游戏系统流程
+    ├── csv-reference/       # CSV 与 ERB/ERH 文件格式
+    ├── game-config/         # 运行配置与图片资源
+    ├── getting-started/     # Emuera 使用方法
+    ├── version-diff/        # Emuera 与旧版差异
+    └── reference/           # 快捷键与调试参考
+```
 
-**使用本 skill**：先按 `SKILL.md → TASK_MAP.md → INDEX.md` 命中文档路径，再打开目标 Markdown，最后给出精确的命令签名和 ERB 代码示例。
+## 安装方法
 
-## ✨ 核心特性
+> 直接把Github连接给编程工具（比如Codex），让它安装。  
+> 或者下载后把压缩包或文件夹给它。
 
-- **完全离线检索**：不依赖模型记忆，先命中文档路径再读取正文
-- **为 Agent 工作流设计**：按 `SKILL.md → TASK_MAP → INDEX` 层层递进检索
-- **日文原档为基准**：基于 [EmueraEM+EE 日语文档](https://gitlab.com/EvilMask/emuera.em.doc) 编写，避免翻译滞后和机翻错误
-- **中文全文书写**：所有描述性文本使用中文，代码块和引擎关键字保留原文
-- **命令签名精确**：每个命令的参数数量、类型、顺序均对照原档核实
-- **默认面向 Emuera**：不考虑旧版 eramaker 兼容，除非用户明确要求
+## 检索流程
 
-## 📚 内容导览
+```text
+SKILL.md
+  ├─ 分类问题，查看核心速查
+  ├─ 不确定时进入 references/TASK_MAP.md
+  ├─ 由 references/INDEX.md 精确定位文件
+  └─ 只打开 1-3 个目标文档获取细节
+```
 
-| 入口 / 模块 | 用途 |
+| 入口 | 作用 |
 | --- | --- |
-| [`SKILL.md`](./SKILL.md) | 技能规则唯一来源：路由策略、核心速查、命令速查表、回答约束 |
-| [`references/TASK_MAP.md`](./references/TASK_MAP.md) | 按任务反查（"我想做 X"→ 对应文档） |
-| [`references/INDEX.md`](./references/INDEX.md) | 全库文件索引（28 个参考文档路径） |
+| [`SKILL.md`](./SKILL.md) | Skill 元数据、路由策略、核心语法和命令速查 |
+| [`references/TASK_MAP.md`](./references/TASK_MAP.md) | 按开发任务反查相关文档 |
+| [`references/INDEX.md`](./references/INDEX.md) | 按分类浏览全部参考文档路径与摘要 |
+
+`references/` 当前包含 **37 个 Markdown 文件**，其中 35 个专题文档、2 个导航文件。
+
+## 文档列表
 
 ### 核心概念
 
-| 文件 | 说明 |
+| 文档 | 内容 |
 | --- | --- |
-| [`syntax-basics.md`](./references/core-concepts/syntax-basics.md) | ERB 基础语法：注释、变量、赋值、数组、函数定义 |
-| [`variables.md`](./references/core-concepts/variables.md) | 完整变量体系：100+ 内置变量按类别详述 |
-| [`expressions.md`](./references/core-concepts/expressions.md) | Emuera 扩展表达式：行尾注释、行连接、FORM 语法、字符串式 |
-| [`operators.md`](./references/core-concepts/operators.md) | 运算符一览：优先级、算术、比较、逻辑、位运算、三目运算 |
-| [`user-defined-variables.md`](./references/core-concepts/user-defined-variables.md) | 用户定义变量：#DIM/#DIMS 及其所有变体 |
-| [`in-expression-functions.md`](./references/core-concepts/in-expression-functions.md) | 式中函数（内联函数）：内置函数一览与使用方法 |
-| [`header-files.md`](./references/core-concepts/header-files.md) | ERH 头文件：全局变量声明、SAVEDATA/CHARADATA/GLOBAL 关键字 |
-| [`preprocessor.md`](./references/core-concepts/preprocessor.md) | 函数定义、参数传递、宏定义(#DEFINE)、预处理器指令一览 |
+| [`syntax-basics.md`](./references/core-concepts/syntax-basics.md) | ERB 基础语法、文件组织、变量、赋值、函数、条件与循环 |
+| [`expressions.md`](./references/core-concepts/expressions.md) | Emuera 扩展表达式、行尾注释、行连接、FORM 与字符串表达式 |
+| [`operators.md`](./references/core-concepts/operators.md) | 运算符、优先级、算术、比较、逻辑、位运算与三目运算 |
+| [`variables.md`](./references/core-concepts/variables.md) | 内置变量、CSV 引用变量、角色变量、局部变量与全局变量 |
+| [`user-defined-variables.md`](./references/core-concepts/user-defined-variables.md) | `#DIM`/`#DIMS` 及 `DYNAMIC`、`CONST`、`REF`、`SAVEDATA` 等属性 |
+| [`header-files.md`](./references/core-concepts/header-files.md) | ERH 头文件、全局变量定义、`SAVEDATA`/`CHARADATA`/`GLOBAL` |
+| [`preprocessor.md`](./references/core-concepts/preprocessor.md) | 预处理器、宏定义、参数声明和函数属性 |
+| [`user-defined-functions.md`](./references/core-concepts/user-defined-functions.md) | 一般函数、式中函数、参数传递、引用传递与事件函数属性 |
+| [`in-expression-functions.md`](./references/core-concepts/in-expression-functions.md) | 内置式中函数一览与使用限制 |
 
 ### 命令参考
 
-| 文件 | 说明 |
+| 文档 | 内容 |
 | --- | --- |
-| [`print-system.md`](./references/commands/print-system.md) | PRINT 系命令大全 |
-| [`display-font.md`](./references/commands/display-font.md) | 颜色、字体、对齐、进度条、跳过控制 |
-| [`string-operations.md`](./references/commands/string-operations.md) | 字符串操作：大小写、全半角、子串、查找、分割、匹配 |
-| [`control-flow.md`](./references/commands/control-flow.md) | 流程控制：IF/SIF/FOR/WHILE/REPEAT/SELECTCASE/GOTO/CALL/TRY/TRYC/TRYLIST |
-| [`input.md`](./references/commands/input.md) | 输入命令：INPUT/INPUTS/ONEINPUT/TINPUT/INPUTMOUSEKEY |
-| [`system.md`](./references/commands/system.md) | 系统命令：BEGIN/QUIT/存档/时间/内存/配置 |
-| [`character.md`](./references/commands/character.md) | 角色操作：ADDCHARA/DELCHARA/FINDCHARA/PICKUPCHARA/SORTCHARA |
-| [`data-save-load.md`](./references/commands/data-save-load.md) | 存档读档：SAVEGAME/SAVEDATA/SAVECHARA/SAVETEXT/CHKDATA |
-| [`data-table.md`](./references/commands/data-table.md) | DataTable 数据库命令 |
-| [`map.md`](./references/commands/map.md) | MAP（关联数组）命令 |
-| [`xml.md`](./references/commands/xml.md) | XML 文档处理命令 |
-| [`graphics.md`](./references/commands/graphics.md) | 图形：画布、精灵、动画、按钮背景 |
-| [`sound.md`](./references/commands/sound.md) | 音频：音效/BGM 播放与音量控制 |
-| [`html-print.md`](./references/commands/html-print.md) | HTML_PRINT 标签系统：p/button/font/img/div 等标签 |
-| [`math-etc.md`](./references/commands/math-etc.md) | 数学、数组操作、变量参照、文件检查、SWAP/TIMES |
-| [`tooltip.md`](./references/commands/tooltip.md) | TOOLTIP 工具提示：延迟/时长/颜色/字体/格式 |
+| [`print-system.md`](./references/commands/print-system.md) | `PRINT`/`PRINTV`/`PRINTS`/`PRINTFORM`/`PRINTDATA` 等输出命令 |
+| [`display-font.md`](./references/commands/display-font.md) | 颜色、字体、对齐、重绘、进度条和跳过显示 |
+| [`control-flow.md`](./references/commands/control-flow.md) | `IF`/`SIF`/`FOR`/`WHILE`/`REPEAT`/`SELECTCASE`/`TRY` 等 |
+| [`input.md`](./references/commands/input.md) | `INPUT`/`INPUTS`/`ONEINPUT`/`TINPUT`/`INPUTMOUSEKEY` 等输入命令 |
+| [`character.md`](./references/commands/character.md) | 角色添加、删除、复制、查找、排序与拾取 |
+| [`data-save-load.md`](./references/commands/data-save-load.md) | 游戏、角色、全局数据和文本的存档读档 |
+| [`system.md`](./references/commands/system.md) | `BEGIN`/`QUIT`、时间、内存、配置和窗口控制 |
+| [`string-operations.md`](./references/commands/string-operations.md) | 大小写、全半角、子串、查找、分割、匹配与替换 |
+| [`math-etc.md`](./references/commands/math-etc.md) | 数学、数组操作、变量参照、文件检查、`SWAP`/`TIMES` |
+| [`data-table.md`](./references/commands/data-table.md) | DataTable 创建、列行操作、单元格查询与 XML 序列化 |
+| [`map.md`](./references/commands/map.md) | MAP 关联数组的创建、查询、修改、遍历与序列化 |
+| [`xml.md`](./references/commands/xml.md) | XML 文档、节点、属性和 XPath 查询 |
+| [`graphics.md`](./references/commands/graphics.md) | 画布、图形、文字、精灵、动画和按钮背景 |
+| [`sound.md`](./references/commands/sound.md) | 音效与 BGM 播放、停止、音量和文件检查 |
+| [`html-print.md`](./references/commands/html-print.md) | `HTML_PRINT` 标签系统、转义和纯文本转换 |
+| [`tooltip.md`](./references/commands/tooltip.md) | 工具提示延迟、时长、颜色、字体和格式 |
 
-### 专题文档
+### 流程、数据与运行
 
-| 文件 | 说明 |
+| 文档 | 内容 |
 | --- | --- |
-| [`system-flow.md`](./references/system-flow/system-flow.md) | 游戏系统流程：TITLE→FIRST→SHOP→TRAIN 各阶段详解 |
-| [`config.md`](./references/game-config/config.md) | 游戏配置：emuera.config、_replace.csv、VariableSize.csv |
-| [`differences.md`](./references/version-diff/differences.md) | Emuera 与 eramaker 的所有差异 |
-| [`csv-format.md`](./references/csv-reference/csv-format.md) | CSV 文件格式：chara*.csv、item.csv、str.csv 等完整说明 |
-| [`erb-format.md`](./references/csv-reference/erb-format.md) | ERB/ERH 文件格式规范与最佳实践 |
-| [`debug.md`](./references/reference/debug.md) | 调试功能完整参考（**不推荐在开发中使用**） |
-| [`shortcuts.md`](./references/reference/shortcuts.md) | Emuera 快捷键一览（用户操作） |
+| [`system-flow.md`](./references/system-flow/system-flow.md) | TITLE → FIRST → SHOP → TRAIN 流程与系统函数 |
+| [`config.md`](./references/game-config/config.md) | `emuera.config`、`_replace.csv` 和 `_Rename.csv` |
+| [`resources.md`](./references/game-config/resources.md) | 图片资源目录、资源 CSV、精灵表、动画精灵与绘图接口 |
+| [`csv-format.md`](./references/csv-reference/csv-format.md) | `chara*.csv`、`item.csv`、`abl.csv`、`str.csv` 等格式 |
+| [`erb-format.md`](./references/csv-reference/erb-format.md) | ERB/ERH 编码、命名规则、跳过区块与文件组织实践 |
+| [`differences.md`](./references/version-diff/differences.md) | Emuera 与旧版 Emuera、eramaker 的功能与兼容性差异 |
+| [`usage.md`](./references/getting-started/usage.md) | 运行环境、基本操作、键盘宏、菜单和 `_Rename.csv` |
+| [`shortcuts.md`](./references/reference/shortcuts.md) | Emuera 用户界面快捷键 |
+| [`debug.md`](./references/reference/debug.md) | 调试模式与调试功能，仅供排查复杂问题 |
+| [`glossary.md`](./references/glossary.md) | 启动模式、窗口、函数、行、表达式和变量术语 |
 
-## 🧭 推荐检索路径
+## 快速检索
 
-```text
-SKILL.md → TASK_MAP.md → INDEX.md → 目标 Markdown
-```
-
-设计原则：先从 SKILL.md 的核心速查表和命令速查表找答案；需要精确签名或细节时，通过 TASK_MAP 定位主题，INDEX 命中文件路径，最后只打开 1-3 个文件读细节。
-
-## 📦 适用场景
-
-- **ERB 语法查询**：注释、变量赋值、数组访问、表达式、运算符优先级
-- **命令 API 确认**：PRINT 系、控制流、输入、角色操作、存档读档等 180+ 命令的精确签名
-- **新增功能开发**：DataTable（数据库）、MAP（关联数组）、XML 处理、图形/精灵、音频播放
-- **游戏系统架构**：理解 @EVENTFIRST / @SHOP / @TRAIN 等事件函数的调用时机和职责
-- **CSV 数据配置**：chara*.csv、item.csv、str.csv、VariableSize.csv 等文件的格式和用法
-- **Agent 集成**：作为 Gemini CLI、Claude Code、Codex 的 ERA Basic 知识检索层
-
-## 🚀 快速接入
-
-将 `emuera-basic/` 目录放入 AI 编程助手的 skills 扫描路径：
+在仓库根目录可以使用 `rg` 检索：
 
 ```bash
-# Claude Code / Codex
-cp -r emuera-basic ~/.agents/skills/
+# 搜索命令名称
+rg -n "SAVEGAME|LOADGAME" references
 
-# 或使用 skills CLI
-npx skills add <your-repo-url> --skill emuera-basic
+# 查看某类命令的所有定义
+rg -n "^##|^###" references/commands/tooltip.md
+
+# 查找变量或关键字
+rg -n "CFLAG|TALENT|EXP" references/core-concepts/variables.md
 ```
 
-## 📜 来源与许可
+## 其它说明
 
-- 数据源：[EmueraEM+EE 文档仓库](https://gitlab.com/EvilMask/emuera.em.doc)（Emuera 引擎官方文档）
-- 当前版本以 EmueraEM+EE 文档仓库的`5c1ed0dcdede40a7f435c6cdb16f578dd784c834`提交为基础制作
+- 当前版本以 [EmueraEM+EE 文档仓库](https://gitlab.com/EvilMask/emuera.em.doc) 的`5c1ed0dcdede40a7f435c6cdb16f578dd784c834`提交为基础制作

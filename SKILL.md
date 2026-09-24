@@ -1,6 +1,6 @@
 ---
 name: emuera-basic-agent-guide
-description: 用于 ERA Basic（ERB）脚本的开发帮助。覆盖 Emuera 的 ERB 语法、变量体系、命令/函数 API、系统流程、角色与 CSV 数据处理、图形/音频、DataTable/MAP/XML、调试与配置。默认面向 Emuera，不考虑旧版 eramaker 兼容。
+description: 用于 ERA Basic（ERB）脚本的开发帮助。覆盖 Emuera 的 ERB 语法、变量体系、命令/函数 API、系统流程、角色与 CSV 数据处理、图形/音频、DataTable/MAP/XML、调试与配置。只针对最新版本 Emuera.NET 1824+v24+EMv18+EEv55，其它版本情自行确认兼容性。
 metadata:
   version: "1.0.0"
 ---
